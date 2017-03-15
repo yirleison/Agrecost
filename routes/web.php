@@ -14,6 +14,34 @@
 Route::get('/', function () {
     return view('welcome');
 });
-/*Resource agrupa los metodos para crear, modificar, mostrar, etc creados en el controlador
-Animal es la carpeta creada en las vistas y este se une con el controlador*/
-Route::resource('Animal','AnimalController');
+
+Route::get('tanques',[
+  'as'=>'tanques',
+  'uses'=>'tanqueController@index',
+]);
+
+Route::post('registro/tanque',[
+  'as'=>'registrar-tanque',
+  'uses'=>'tanqueController@crear_tanque',
+]);
+
+Route::get('consultar/tanques',[
+  'as'=>'listar-tanques',
+  'uses'=>'tanqueController@listar_taques',
+]);
+
+Route::get('tabla/tanques','tanqueController@getTabla');
+
+Route::get('editar/tanque/{id}',[
+  'as'=>'/editar/tanque',
+  'uses'=>'tanqueController@editar',
+]);
+
+Route::post('actualizar/tanque/{id}',[
+  'as'=>'/actualizar/tanque',
+  'uses'=>'tanqueController@actualizar',
+]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
