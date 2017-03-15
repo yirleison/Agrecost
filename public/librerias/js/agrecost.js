@@ -102,7 +102,7 @@ var tanque = {
           antidad:$('#cantidad').val('');
           capacidad:$('#capacidad').val('');
           estado:$('#estado').val('');
-      tabla.ajax.reload();
+          tabla.ajax.reload();
       console.log(respuesta.mensaje);
     });
   }
