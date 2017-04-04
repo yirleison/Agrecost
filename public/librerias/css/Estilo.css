@@ -64,3 +64,42 @@
 		margin-left: 25%;
 	}
 }
+
+.has-error .error {
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+
+.Produccion{
+	display: none;
+}
+
+.detalle-tanque {
+	margin-left: 80px;
+	width: 90%;
+}
+
+.venta {
+display: none;
+}
+.total-leche {
+	margin-top: 20px;
+}
+.total-leche h3 {
+	font-size: 18px;
+	width: 12%;
+	margin: 0 auto;
+}
+
+#detalle-venta {
+	display: none;
+}
+.alert {
+	display: none;
+}
+.content-tabla{
+	margin-top: 20px;
+  border-radius: 5px;
+	background: white;
+}

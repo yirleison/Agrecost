@@ -9,8 +9,9 @@
   <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
   <link href="/build/css/custom.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="/librerias/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
   <link rel="stylesheet" href="/librerias/datatable/datatable.css">
+  <link rel="stylesheet" href="/vendors/select2/dist/css/select2.css">
 
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -79,14 +80,14 @@
                 </li>
                 <li><a><img src="/librerias/Imagenes/Iconos/corral.png" alt=""> Corrales <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="#">Registro Corrales</a></li>
-                    <li><a href="#">Consultar Corral</a></li>
+                    <li><a href="corrales">Registro Corrales</a></li>
+                    <li><a href="consultar/corrales">Consultar Corral</a></li>
                   </ul>
                 </li>
               </li>
               <li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Produccion <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                  <li><a href="chartjs.html">Chart JS</a></li>
+                  <li><a href="movimiento">Movimiento</a></li>
                 </ul>
               </li>
               <li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Tanques <span class="fa fa-chevron-down"></span></a>
@@ -240,9 +241,14 @@
 <script src="/vendors/nprogress/nprogress.js"></script>
 <script src="/librerias/datatable/datatable.js"></script>
 <script src="/librerias/js/agrecost.js"></script>
+<script src="/librerias/js/validar_venta.js"></script>
+<script src="/librerias/js/movimiento.js"></script>
 <script src="/librerias/jquery-validate/jquery.validate.min.js"></script>
 <script src="/librerias/jquery-validate/additional-methods.min.js"></script>
 <script src="/librerias/js/agrecost.validaciones.js"></script>
+<script type="text/javascript" src="/librerias/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="/librerias/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
+<script type="text/javascript" src="/vendors/select2/dist/js/select2.full.js"></script>
 
 @if (Session::has('notifier.notice'))
 <script>

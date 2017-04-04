@@ -84,6 +84,4 @@ class tanqueController extends Controller
     return json_encode(["mensaje"=>1]);
   }
 
-
-
 }

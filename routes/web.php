@@ -11,10 +11,12 @@
 |
 */
 
+// Ruta principal
 Route::get('/', function () {
     return view('welcome');
 });
 
+// Inicio rutas para el módulo tanques......
 Route::get('tanques',[
   'as'=>'tanques',
   'uses'=>'tanqueController@index',
@@ -41,7 +43,41 @@ Route::post('actualizar/tanque/{id}',[
   'as'=>'/actualizar/tanque',
   'uses'=>'tanqueController@actualizar',
 ]);
+//  Fin rutas módulo tanques....
 
+// Inicio rutas para el módulo corrales....
+Route::get('corrales',[
+  'as'=>'corral',
+  'uses'=>'corralesController@index',
+]);
+
+Route::post('registro/corral',[
+  'as'=>'registrar-corral',
+  'uses'=>'corralesController@crear_corral',
+]);
+
+Route::get('editar/corral/{id}',[
+  'as'=>'/editar/corral',
+  'uses'=>'corralesController@editar',
+]);
+
+Route::post('actualizar/corral/{id}',[
+  'as'=>'/actualizar/corral',
+  'uses'=>'corralesController@actualizar',
+]);
+
+Route::get('consultar/corrales',[
+  'as'=>'listar-corrales',
+  'uses'=>'corralesController@listar_corrales',
+]);
+Route::get('tabla/corrales','corralesController@getTabla');
+// Fin rutas para el módulo corrales....
+
+//Rutas movimiento.....
+Route::get('movimiento','movimientoController@index');
+Route::get('movimiento/tabla/tanques','movimientoController@listar_tanques');
+Route::post('venta/registro','movimientoController@registrar_venta');
+Route::post('movimiento/registro/produccion','movimientoController@registrar_produccion');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

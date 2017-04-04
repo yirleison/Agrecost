@@ -55,7 +55,7 @@
           {!!Form::open(['id'=>'tanque-actualizar'])!!}
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user" aria-hidden="true"></i> Información Tanque</h4>
+            <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user" aria-hidden="true"></i> Información del tanque</h4>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -92,6 +92,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 @endsection
