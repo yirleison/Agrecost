@@ -14,7 +14,7 @@ class AnimalController extends Controller
 
     public function index(Request $request)
     {
-        
+
     }
 
     public function create()
@@ -49,23 +49,26 @@ class AnimalController extends Controller
             $Nombre = Animal::all();
             return view ('Animal.index',compact('Nombre'));
         }
-     }
+    }
 
 
-     public function edit($id)
-     {
+    public function edit($id)
+    {
         //
-     }
+    }
 
-     /*Se llama la funcion con el metodo SPATCH*/
-     public function update(Request $request, $id)
-     {
+    /*Se llama la funcion con el metodo SPATCH*/
+    public function update(Request $request, $id)
+    {
         //
-     }
+    }
 
-     /*Se llama la funcion con el metodo DELETE*/
-     public function destroy($id)
-     {
+    /*Se llama la funcion con el metodo DELETE*/
+    public function destroy($id)
+    {
         //
-     }
- }
+    }
+
+
+    
+}
