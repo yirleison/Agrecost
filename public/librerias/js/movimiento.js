@@ -30,16 +30,6 @@ var movimiento = {
         $(".Produccion").fadeIn("fast");
       }
     });
-
-    $("#valor").blur(function() {
-      if ($("#cantidad").val()=="" || $("#valor").val()=="") {
-        $("#success-alert").fadeTo(1000, 500).slideUp(1000, function(){
-          $("#success-alert").slideUp(500);
-        });
-      }else{
-        $("#total").text(parseFloat($("#cantidad").val()*$("#valor").val()));
-      }
-    });
   },
 
   registar_venta(){
@@ -47,8 +37,9 @@ var movimiento = {
     var datos = {
       movimiento:$("#ocultar-produccion").val(),
       cantidad:$("#cantidad").val(),
-      valor_venta: parseFloat($("#total").text())
+      valor_venta: parseFloat(($("#valor").val()*$("#cantidad").val()))
     };
+    console.log(datos);
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -78,7 +69,7 @@ var movimiento = {
           $("#cantidad").val('');
           $("#valor").val('');
           $("#total").text('');
-          $("#tblTq").append("<tr><td>"+el.Codigo+"</td><td>"+el.Cantidad+"</td><td>"+el.Fecha+"</td><td>"+el.Valor+"</td><td>"+tipo+"</td></tr>");
+          $("#tblTq").append("<tr><td>"+el.Codigo+"</td><td>"+el.Cantidad+"</td><td>"+el.Fecha+"</td><td>"+el.Valor+"</td><td>"+tipo+"</td><td><button class='btn btn-danger' onclick='movimiento.eliminar_venta("+el.Codigo+")' title='Eliminar venta'><i class='fa fa-trash-o' aria-hidden='true'></i></button></td></tr>");
         });
         $("#tabla-detalle-venta").show();
       }
@@ -132,9 +123,33 @@ var movimiento = {
           "<tr><td>"+p.Codigo+"</td><td>"+
           tipo+"</td><td>"+
           p.Cantidad+"</td><td>"+
-          p.Fecha+"</td><tr>");
+          p.Fecha+"</td><td><button class='btn btn-danger' title='ELiminar movimiento'><i class='fa fa-trash-o' aria-hidden='true'></i></button></td><tr>");
         });
         $("#tabla-detalle-produccion").show();
       });
-  }
-}
+    },
+
+    eliminar_venta:function (id) {
+      new PNotify({
+        title: 'Confirmation Needed',
+        text: 'Are you sure?',
+        icon: 'glyphicon glyphicon-question-sign',
+        hide: false,
+        confirm: {
+          confirm: true
+        },
+        buttons: {
+          closer: false,
+          sticker: false
+        },
+        history: {
+          history: false
+        },
+        addclass: 'stack-modal',
+        stack: {'dir1': 'down', 'dir2': 'right', 'modal': true}
+      })).get().on('pnotify.confirm', function(){
+        alert('Ok, cool.');
+      }).on('pnotify.cancel', function(){
+        alert('Oh ok. Chicken, I see.');
+      });
+    }

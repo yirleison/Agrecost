@@ -77,7 +77,7 @@ class movimientoController extends Controller
 
             $update = [];
 
-            if($value->Cantidad != 0){
+            if($value->Cantidad != 0 && $cv != 0){
 
               if($value->Cantidad == $cv){
 
@@ -89,7 +89,7 @@ class movimientoController extends Controller
               }
               elseif($value->Cantidad < $cv){
 
-                $update = ["Cantidad"=>0,];
+                $update = ["Cantidad"=>0,"Estado" => "Disponible"];
 
 
                 $cv = ($cv-$value->Cantidad);
@@ -100,13 +100,10 @@ class movimientoController extends Controller
 
               }
               else {
-                $cv;
 
                 array_push($tq_update, ["Codigo"=>$value->Codigo, "Cantidad"=>$cv]);
 
-                $update = ["Cantidad"=>($value->Cantidad-$cv),"Estado"=>"Disponible"];
-
-
+                $update = ["Cantidad"=>($value->Cantidad-$cv),"Estado" => "Disponible"];
                 $cv = 0;
               }
               $up_t =  DB::table('tanque')->where("Codigo", $value->Codigo)->update($update);
@@ -116,7 +113,7 @@ class movimientoController extends Controller
               }
 
             }
-            
+
           }
           if ($cont > 0) {
             foreach ($tq_update as  $valor) {

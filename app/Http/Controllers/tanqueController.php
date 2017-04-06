@@ -22,7 +22,9 @@ class tanqueController extends Controller
     $tanque->save();
 
     if ($tanque != null) {
-      Notify::success("Registro tanque","Resgistro exitoso");
+
+      Notify::success('Registro tanque','Resgistro exitoso');
+
       return redirect()->route('tanques');
     }
     else{

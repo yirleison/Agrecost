@@ -2,12 +2,7 @@
 
 @section('contenedor')
   <link rel="stylesheet" href="/librerias/css/Estilo.css">
-
   <div id="formulario"  class="row container-fluid">
-    <div class="alert alert-error" role="alert" id="success-alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Error!</strong> Por favor ingrese el valor de la venta!
-    </div>
     <div class="form row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="form-group">
@@ -61,7 +56,7 @@
     <div class="row" style="margin-top:20px;">
       <div class="col-md-12" style="background:white;">
         <div class="content-tabla table-responsive" id="tabla-detalle-venta">
-          <table  class="table table-bordered table-striped table-responsive text-center" style="width:100%;">
+          <table  class="table table-striped table-bordered table-list text-center" style="width:100%;">
             <thead >
               <tr>
                 <th class="text-center">Codigo Venta</th>
@@ -69,6 +64,7 @@
                 <th class="text-center">Fecha</th>
                 <th class="text-center">Valor Venta</th>
                 <th class="text-center">Tipo Movimiento</th>
+                <th class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody id="tblTq">
@@ -117,6 +113,7 @@
                 <th class="text-center">Tipo Movimiento</th>
                 <th class="text-center">Cantidad</th>
                 <th class="text-center">Fecha</th>
+                <th class="text-center">Acción</th>
               </tr>
             </thead>
             <tbody id="tblprod">
@@ -145,5 +142,6 @@
     format: 'yyyy-mm-dd'
   });
   movimiento.init();
+
   </script>
 @endsection
