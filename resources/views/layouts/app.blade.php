@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/librerias/pnotify/pnotify.custom.min.css">
   <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -13,6 +12,7 @@
   <link rel="stylesheet" href="/librerias/datatable/datatable.css">
   <link rel="stylesheet" href="/vendors/select2/dist/css/select2.css">
 
+  <link rel="stylesheet" href="/librerias/pnotify/pnotify.custom.min.css">
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -230,7 +230,7 @@
 <script src="/vendors/jquery/dist/jquery.min.js"></script>
 <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/vendors/fastclick/lib/fastclick.js"></script>
-<script src="/librerias/pnotify/pnotify.custom.min.js"></script>
+
 <script src="/build/js/custom.js"></script>
 <script src="/vendors/nprogress/nprogress.js"></script>
 <script src="/librerias/datatable/datatable.js"></script>
@@ -246,11 +246,17 @@
 <script type="text/javascript" src="/librerias/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
 <script type="text/javascript" src="/vendors/select2/dist/js/select2.full.js"></script>
 
+@yield('scripts')
+
+<script src="/librerias/pnotify/pnotify.custom.min.js"></script>
 @if (Session::has('notifier.notice'))
 <script>
-new PNotify({!! Session::get('notifier.notice') !!});
+<?php
+  $datos = json_decode(Session::get('notifier.notice'));
+?>
+    new PNotify({"title":'<?= $datos->title ?>', "text":'<?= $datos->text ?>', "type":'<?= $datos->type ?>'});
 </script>
 @endif
 
-@yield('scripts')
+
 </html>

@@ -20,7 +20,7 @@ class tanqueController extends Controller
 
 
     if ($tanque != null) {
-      var_dump($tanque);
+
       Notify::success('Registro tanque','Resgistro exitoso');
 
       return redirect()->route('tanques');
