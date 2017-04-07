@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produccion_corral extends Model
 {
-	protected $table='Produccion_corral';
+	protected $table='produccion_corral';
 
 	protected $fillable=[
 

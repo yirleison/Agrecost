@@ -6,13 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tanque extends Model
 {
-  protected $table = 'tanque';
+    protected $table = 'tanque';
 
-  protected $fillabe = [
-    'Cantidad',
-    'Capacidad',
-    'Estado'
-  ];
+    protected $fillable = ['Cantidad','Capacidad','Estado'];
 
-  public $timestamps = false;
+  public $timestamps=false;
 }

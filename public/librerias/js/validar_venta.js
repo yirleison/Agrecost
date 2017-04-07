@@ -95,7 +95,7 @@ $("#btn-produccion").click(function(event) {
     });
     return false;
   }else {
-    return tue;
+    return true;
   }
   if (!isNaN($("#cantidad_produccion").val())) {
     return false;

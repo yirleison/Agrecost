@@ -162,7 +162,6 @@ var movimiento = {
               type:'success'
             });
 
-          
             document.getElementById("tblTq").deleteRow(0);
           }
           else {
@@ -172,6 +171,55 @@ var movimiento = {
               type:'info'
             });
           }
+
+        });
+      }).on('pnotify.cancel', function() {
+
+      });
+    },
+
+    eliminar_produccion:function (id) {
+      (new PNotify({
+        title: 'Eliminar la produccion',
+        text: 'Desea eliminar esta producción ?',
+        icon: 'glyphicon glyphicon-question-sign',
+        type:'info',
+        hide: false,
+        confirm: {
+          confirm: true
+        },
+        buttons: {
+          closer: false,
+          sticker: false
+        },
+        history: {
+          history: false
+        }
+      })).get().on('pnotify.confirm', function() {
+        $.ajax({
+          url: '/movimiento/eliminar/produccion',
+          type: 'POST',
+          dataType: 'json',
+          data: {id: id}
+        })
+        .done(function(success) {
+          console.log(success);
+          // if(success.respuesta == 1){
+          //   new PNotify({
+          //     title: 'Venta',
+          //     text: 'Se ha eliminado la venta con exito',
+          //     type:'success'
+          //   });
+          //
+          //   document.getElementById("tblTq").deleteRow(0);
+          // }
+          // else {
+          //   new PNotify({
+          //     title: 'Venta',
+          //     text: 'No se ha podido realizar esta operacion',
+          //     type:'info'
+          //   });
+          // }
 
         });
       }).on('pnotify.cancel', function() {
