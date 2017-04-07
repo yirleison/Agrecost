@@ -73,6 +73,26 @@ Route::get('consultar/corrales',[
 Route::get('tabla/corrales','corralesController@getTabla');
 // Fin rutas para el módulo corrales....
 
+// Rutas de la venta animal
+Route::get('ventaAnimal/getAnimal','ventaAnimalController@getAnimal');
+Route::get('/ventaAnimal/consulta/{id}','ventaAnimalController@consulta');
+Route::post('/ventaAnimal/guardar','ventaAnimalController@guardarVentas');
+Route::get('/ventaAnimal/listar','ventaAnimalController@listarView');
+Route::get('/ventaAnimal/listarventas','ventaAnimalController@listar_ventas');
+Route::get('/ventaAnimal/mostrar','ventaAnimalController@mostrar');
+Route::get('/ventaAnimal/pdf/{id}','ventaAnimalController@pdf');
+Route::get('/ventaAnimal/excel','ventaAnimalController@excel');
+// Final de las rutas de la venta
+
+
+// Rutas del promedio de leche por animal
+Route::get('/promedioleche/get/{id}','promedioAnimalController@get');
+Route::get('/promedioleche/listar','promedioAnimalController@listar');
+Route::post('/promedioleche/guardarproduccion','promedioAnimalController@guardarP');
+Route::get('/promedioleche/poranimal','promedioAnimalController@vistapromedio_animal');
+Route::get('/promedioleche/marcado/{id}','promedioAnimalController@marcado');
+// Fina de las rutas del promedio de leche por animal
+
 //Rutas movimiento.....
 Route::get('movimiento','movimientoController@index');
 Route::get('movimiento/tabla/tanques','movimientoController@listar_tanques');
@@ -81,3 +101,9 @@ Route::post('movimiento/registro/produccion','movimientoController@registrar_pro
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+// Rutas resource (Estas van de ultima de todas la rutas por obligacion)
+Route::resource('ventaAnimal', 'ventaAnimalController');
+Route::resource('promedioleche','promedioAnimalController');
+//  Fin Rutas resource

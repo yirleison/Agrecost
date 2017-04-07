@@ -4,13 +4,14 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Produccion_corral extends Model
+class promedioAnimal extends Model
 {
-	protected $table='Produccion_corral';
+	protected $table='Promedio_animal';
+
 
 	protected $fillable=[
 
-	'Codigo_corral','Codigo_movimiento','Jornada'
+	'Codigo','Codigo_animal','Fecha','Cantidad_leche'
 
 	];
 

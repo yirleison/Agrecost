@@ -4,14 +4,12 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Produccion_corral extends Model
+class Raza extends Model
 {
-	protected $table='Produccion_corral';
+	protected $table='raza';
 
 	protected $fillable=[
-
-	'Codigo_corral','Codigo_movimiento','Jornada'
-
+	'Nombre'
 	];
 
 	public $timestamps=false;
