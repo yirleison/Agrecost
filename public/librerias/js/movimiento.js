@@ -130,6 +130,7 @@ var movimiento = {
     },
 
     eliminar_venta:function (id) {
+
       new PNotify({
         title: 'Confirmation Needed',
         text: 'Are you sure?',
@@ -153,3 +154,4 @@ var movimiento = {
         alert('Oh ok. Chicken, I see.');
       });
     }
+  }

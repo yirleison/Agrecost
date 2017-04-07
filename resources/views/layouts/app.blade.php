@@ -65,40 +65,28 @@
                     <li><a href="form_wizards.html">Generar Reporte</a></li>
                   </ul>
                 </li>
-                <li><a><img src="/librerias/Imagenes/Iconos/vacuna.png" alt=""> Vacunacion <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="general_elements.html">General Elements</a></li>
-                    <li><a href="media_gallery.html">Media Gallery</a></li>
-                    <li><a href="typography.html">Typography</a></li>
-                    <li><a href="icons.html">Icons</a></li>
-                    <li><a href="glyphicons.html">Glyphicons</a></li>
-                    <li><a href="widgets.html">Widgets</a></li>
-                    <li><a href="invoice.html">Invoice</a></li>
-                    <li><a href="inbox.html">Inbox</a></li>
-                    <li><a href="calendar.html">Calendar</a></li>
-                  </ul>
-                </li>
                 <li><a><img src="/librerias/Imagenes/Iconos/corral.png" alt=""> Corrales <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="corrales">Registro Corrales</a></li>
                     <li><a href="consultar/corrales">Consultar Corral</a></li>
                   </ul>
                 </li>
-              </li>
-              <li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Produccion <span class="fa fa-chevron-down"></span></a>
+                <li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Tanques <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="{{route('tanques')}}">Registro Tanques</a></li>
+                    <li><a href="{{route('listar-tanques')}}">Consultar Tanque</a></li>
+                    <li><a href="morisjs.html">Moris JS</a></li>
+                    <li><a href="echarts.html">ECharts</a></li>
+                    <li><a href="other_charts.html">Other Charts</a></li>
+                  </ul>
+                </li>
+                <li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Produccion <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a href="movimiento">Movimiento</a></li>
+                  <li><a href="#">Produccion animal</a></li>
                 </ul>
               </li>
-              <li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Tanques <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                  <li><a href="{{route('tanques')}}">Registro Tanques</a></li>
-                  <li><a href="{{route('listar-tanques')}}">Consultar Tanque</a></li>
-                  <li><a href="morisjs.html">Moris JS</a></li>
-                  <li><a href="echarts.html">ECharts</a></li>
-                  <li><a href="other_charts.html">Other Charts</a></li>
-                </ul>
-              </li>
+
               <li>
                 <a>
                   <img src="/librerias/Imagenes/Iconos/insumo.png" alt=""> Insumos <span class="fa fa-chevron-down"></span>
