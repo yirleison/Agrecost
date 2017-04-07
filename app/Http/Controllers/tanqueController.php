@@ -21,7 +21,7 @@ class tanqueController extends Controller
 
     if ($tanque != null) {
 
-      Notify::success('Registro tanque','Resgistro exitoso');
+      Notify::success('Registro tanque','Registro exitoso');
 
       return redirect()->route('tanques');
     }
