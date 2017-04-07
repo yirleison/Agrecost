@@ -6,7 +6,7 @@ var tanque = {
   tabla_tanque:function () {
 
     $(function() {
-      tabla =  $('#users-table').DataTable({
+      tabla =  $('#tabla-tanques').DataTable({
         processing: true,
         serverSide: true,
         ajax: '/tabla/tanques',

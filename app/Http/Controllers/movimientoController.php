@@ -266,7 +266,57 @@ class movimientoController extends Controller
               if ($elim_re_ex_leche != null) {
 
                 $elim_re_venta = Movimiento::where('Codigo',$id_venta)->delete();
-    
+
+              }
+            }
+          }
+          $cont++;
+        }
+        if ($cont > 0) {
+          return json_encode(["respuesta"=>1]);
+        }
+      } catch (Exception $e) {
+        return json_encode(["respuesta"=>2]);
+      }
+    }
+  }
+
+  public function eliminar_produccion() {
+
+    $id_venta = $request->input("id");
+
+    $ex = [];
+    $ex = DB::table("existencia_leche")->where('Codigo_movimiento','=', $id_venta)->get();
+
+    if ($ex != null) {
+
+      $cont = 0;
+      try {
+
+        foreach ($ex as $key => $value) {
+
+          $ta = DB::table('tanque')->where('Codigo','=',$value->Codigo_tanque)->get();
+
+          if ($ta !=null) {
+
+            foreach ($ta as $key1 => $value1) {
+
+              $tan_update = DB::table("tanque")
+              ->where("Codigo",'=',$value->Codigo_tanque)
+              ->update(["Cantidad"=>($value1->Cantidad - $value->Cantidad)]);
+
+              if ($tan_update) {
+                $elim_re_ex_leche = Existencia_leche::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
+              }
+
+              if ($tan_update != null) {
+
+
+              }
+              if ($elim_re_ex_leche != null) {
+
+                $elim_re_venta = Movimiento::where('Codigo',$id_venta)->delete();
+
               }
             }
           }
