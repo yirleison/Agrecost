@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Model\corrales;
+use App\Model\Corral;
 use App\Model\animal_corral;
 use App\Model\Animal;
 use App\Model\promedioAnimal;
@@ -22,7 +22,7 @@ class promedioAnimalController extends Controller
      */
     public function index()
     {
-        $input=corrales::pluck('Tipo','Codigo');
+        $input=Corral::pluck('Tipo','Codigo');
 
 
         return view('promedio.registrar_promedio',compact('input'));
@@ -74,11 +74,11 @@ class promedioAnimalController extends Controller
     public function guardarP(Request $request){
 
 
-        Produccion_corral::create([
+        // Produccion_corral::create([
 
 
 
-            ]);
+        //     ]);
 
 
     }

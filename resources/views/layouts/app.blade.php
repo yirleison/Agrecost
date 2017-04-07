@@ -237,6 +237,8 @@
 <script src="/librerias/js/agrecost.js"></script>
 <script src="/librerias/js/validar_venta.js"></script>
 <script src="/librerias/js/movimiento.js"></script>
+<script src="/librerias/js/promedioScript.js"></script>
+<script src="/librerias/js/Venta_animalScript.js"></script>
 <script src="/librerias/jquery-validate/jquery.validate.min.js"></script>
 <script src="/librerias/jquery-validate/additional-methods.min.js"></script>
 <script src="/librerias/js/agrecost.validaciones.js"></script>

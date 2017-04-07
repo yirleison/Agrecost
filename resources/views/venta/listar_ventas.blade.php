@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 
 @section('contenedor')
@@ -179,7 +179,7 @@
 
 
 
-	@section('script')
+	@section('scripts')
 	<script>
 		ventas.listar_ventas()	
 
