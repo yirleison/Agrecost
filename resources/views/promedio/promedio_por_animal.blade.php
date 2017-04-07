@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 
 
 
@@ -70,7 +70,7 @@
 
 
 
-@section('script')
+@section('scripts')
 <script>
 promedio.marcado()
 </script>

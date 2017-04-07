@@ -39,6 +39,9 @@
 					<span class="input-group-btn"><input type="button" id="btn" class="btn btn-primary" value=" Animal"></span>
 				</div>
 			</div>
+			<div id="Animal_validate">
+				
+			</div>
 			{!!Form::date('Fecha_venta', \Carbon\Carbon::now(),['id'=>'Fecha_venta' , 'class' => 'form-control' ]);!!}
 			{{-- <div class="input-group date" id="date" style="padding-bottom: 20px">
 
@@ -119,7 +122,7 @@
 
 	@endsection
 
-	@section('script')
+	@section('scripts')
 	<script>    
 		// ventas.editar_ventas();
 		ventas.table_venta();
@@ -139,7 +142,11 @@
 				},
 				Animal:{
 					required:true,
-				}
+				}, 
+				errorPlacement: function (error, element) {
+					var name = $(element).attr("name");
+					error.appendTo($("#" + name + "_validate"));
+				},
 				
 			}
 
