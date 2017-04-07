@@ -155,6 +155,24 @@ var movimiento = {
         })
         .done(function(success) {
           console.log(success);
+          if(success.respuesta == 1){
+            new PNotify({
+              title: 'Venta',
+              text: 'Se ha eliminado la venta con exito',
+              type:'success'
+            });
+
+          
+            document.getElementById("tblTq").deleteRow(0);
+          }
+          else {
+            new PNotify({
+              title: 'Venta',
+              text: 'No se ha podido realizar esta operacion',
+              type:'info'
+            });
+          }
+
         });
       }).on('pnotify.cancel', function() {
 

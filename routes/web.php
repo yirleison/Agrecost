@@ -98,6 +98,7 @@ Route::get('movimiento','movimientoController@index');
 Route::get('movimiento/tabla/tanques','movimientoController@listar_tanques');
 Route::post('venta/registro','movimientoController@registrar_venta');
 Route::post('movimiento/eliminar/venta','movimientoController@eliminar_venta');
+Route::post('movimiento/eliminar/produccion','movimientoController@eliminar_produccion');
 Route::post('movimiento/registro/produccion','movimientoController@registrar_produccion');
 Auth::routes();
 
