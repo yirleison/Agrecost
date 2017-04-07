@@ -65,6 +65,12 @@
                     <li><a href="form_wizards.html">Generar Reporte</a></li>
                   </ul>
                 </li>
+                <li><a><img src="/librerias/Imagenes/Iconos/vaca.png" alt=""> Ventas <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li><a href="form_validation.html">Venta Animal</a></li>
+                    <li><a href="">Consultar venta</a></li>
+                  </ul>
+                </li>
                 <li><a><img src="/librerias/Imagenes/Iconos/corral.png" alt=""> Corrales <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li><a href="corrales">Registro Corrales</a></li>
