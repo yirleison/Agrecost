@@ -236,4 +236,15 @@ class movimientoController extends Controller
     }
   }
 
+  public function eliminar_venta(Request $request){
+      $id_venta = $request->input("id");
+
+      $ex_leche = Existencia_leche::where('Codigo_movimiento', $id_venta)->get();
+
+      var_dump($ex_leche);
+
+
+
+  }
+
 }

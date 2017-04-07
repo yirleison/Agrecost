@@ -130,11 +130,11 @@ var movimiento = {
     },
 
     eliminar_venta:function (id) {
-
-      new PNotify({
-        title: 'Confirmation Needed',
-        text: 'Are you sure?',
+      (new PNotify({
+        title: 'Eliminar la venta',
+        text: 'Desea eliminar venta?',
         icon: 'glyphicon glyphicon-question-sign',
+        type:'info',
         hide: false,
         confirm: {
           confirm: true
@@ -145,13 +145,20 @@ var movimiento = {
         },
         history: {
           history: false
-        },
-        addclass: 'stack-modal',
-        stack: {'dir1': 'down', 'dir2': 'right', 'modal': true}
-      })).get().on('pnotify.confirm', function(){
-        alert('Ok, cool.');
-      }).on('pnotify.cancel', function(){
-        alert('Oh ok. Chicken, I see.');
+        }
+      })).get().on('pnotify.confirm', function() {
+        $.ajax({
+          url: '/movimiento/eliminar/venta',
+          type: 'POST',
+          dataType: 'json',
+          data: {id: id}
+        })
+        .done(function(success) {
+          console.log(success);
+        });
+      }).on('pnotify.cancel', function() {
+
       });
+
     }
   }

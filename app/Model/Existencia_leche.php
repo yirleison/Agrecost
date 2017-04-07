@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tanque extends Model
+class Existencia_leche extends Model
 {
   protected $table = 'existencia_leche';
 
