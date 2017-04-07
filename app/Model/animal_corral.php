@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class animal_corral extends Model
 {
-	protected $table='Corral_animal';
+	protected $table='corral_animal';
 
 	protected $fillable=[
 

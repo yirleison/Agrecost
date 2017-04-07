@@ -31,7 +31,7 @@ class promedioAnimalController extends Controller
 
     public function vistapromedio_animal(){
 
-        $ani= Animal::pluck('Nombre','Codigo'); 
+        $ani= Animal::pluck('Nombre','Codigo');
         return view('promedio.promedio_por_animal',compact('ani'));
     }
 
@@ -94,8 +94,8 @@ class promedioAnimalController extends Controller
 
 
        $variable=Animal::select('Animal.Nombre','Animal.Codigo')
-       ->join('Corral_animal','Animal.Codigo','=','Corral_animal.Codigo_animal')
-       ->where('Corral_animal.Codigo_corral','=',$id)
+       ->join('corral_animal','Animal.Codigo','=','corral_animal.Codigo_animal')
+       ->where('corral_animal.Codigo_corral','=',$id)
        ->get();
 
        return Datatables::of($variable)
@@ -106,8 +106,8 @@ class promedioAnimalController extends Controller
     //     return $variable;
 
     // })
-       ->addColumn('Cantidad',"")     
-       ->make(true); 
+       ->addColumn('Cantidad',"")
+       ->make(true);
    }
 
 
