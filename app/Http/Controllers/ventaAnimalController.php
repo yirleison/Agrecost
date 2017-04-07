@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Animal;
 use App\Model\Estado_animal;
 use App\Model\Raza;
-use App\Model\ventaAnimal;
+use App\Model\Venta_animal;
 use DB;
 use Datatables;
 use Notify;
@@ -115,7 +115,7 @@ public function consulta($id){
 
 public function listar_ventas(){
 
-    $variable=ventaAnimal::select('Animal.Nombre','venta_animal.*')
+    $variable=Venta_animal::select('Animal.Nombre','venta_animal.*')
     ->join('Animal','Animal.Codigo','=','venta_animal.Codigo_animal')
     ->get();
     // return json_decode($variable);
@@ -179,7 +179,7 @@ public function update(Request $request, $id)
 
     if ($request -> ajax()){
 
-        $vacu=ventaAnimal::select('venta_animal.*')->where('venta_animal.Codigo','=',$id)->first();
+        $vacu=Venta_animal::select('venta_animal.*')->where('venta_animal.Codigo','=',$id)->first();
 
         if($vacu != null){
 
@@ -212,7 +212,7 @@ public function destroy($id)
 public function guardarVentas(Request $request){
 
 
-    ventaAnimal::create([
+    Venta_animal::create([
 
         "Codigo_animal"=>$request->input('Codigo_animal'),
         "Fecha_venta"=>$request->input('Fecha_venta'),

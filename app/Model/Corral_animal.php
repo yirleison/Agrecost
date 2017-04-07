@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class animal_corral extends Model
+class Corral_animal extends Model
 {
 	protected $table='corral_animal';
 
