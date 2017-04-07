@@ -92,7 +92,7 @@
       </div>
       <div class="col-md-6 Produccion">
         <div class="form-group">
-          {!!Form::select('jornada',['1'=>'Mañana','2'=>'Tarde'],null,['class'=>'form-control','placeholder'=>'Seleccione Jornada','id'=>'jornada'])!!}
+          {!!Form::select('jornada',[''=>'Seleccione Jornada','1'=>'Mañana','2'=>'Tarde'],null,['class'=>'form-control','id'=>'jornada'])!!}
         </div>
       </div>
     </div>

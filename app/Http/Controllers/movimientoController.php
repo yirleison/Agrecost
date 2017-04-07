@@ -281,12 +281,12 @@ class movimientoController extends Controller
     }
   }
 
-  public function eliminar_produccion() {
+  public function eliminar_produccion(Request $request) {
 
-    $id_venta = $request->input("id");
+    $id_produccion = $request->input("id");
 
     $ex = [];
-    $ex = DB::table("existencia_leche")->where('Codigo_movimiento','=', $id_venta)->get();
+    $ex = DB::table("existencia_leche")->where('Codigo_movimiento','=', $id_produccion)->get();
 
     if ($ex != null) {
 
@@ -306,16 +306,18 @@ class movimientoController extends Controller
               ->update(["Cantidad"=>($value1->Cantidad - $value->Cantidad)]);
 
               if ($tan_update) {
-                $elim_re_ex_leche = Existencia_leche::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
+
+                $elim_pro_corral = Produccion_corral::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
+                
               }
 
-              if ($tan_update != null) {
+              if ($elim_pro_corral != null) {
 
-
+                $elim_re_ex_leche = Existencia_leche::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
               }
               if ($elim_re_ex_leche != null) {
 
-                $elim_re_venta = Movimiento::where('Codigo',$id_venta)->delete();
+                $elim_re_venta = Movimiento::where('Codigo',$id_produccion)->delete();
 
               }
             }

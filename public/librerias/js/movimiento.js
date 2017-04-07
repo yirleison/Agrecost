@@ -119,11 +119,14 @@ var movimiento = {
         if(p.Tipo_movimiento == 2){
           tipo = "Produccion";
         }
+          $("#tblprod").empty();
+          $("#cantidad_produccion").val("");
+          $("#jornada").val("");
         $("#tblprod").append(
           "<tr><td>"+p.Codigo+"</td><td>"+
           tipo+"</td><td>"+
           p.Cantidad+"</td><td>"+
-          p.Fecha+"</td><td><button class='btn btn-danger' title='ELiminar movimiento'><i class='fa fa-trash-o' aria-hidden='true'></i></button></td><tr>");
+          p.Fecha+"</td><td><button class='btn btn-danger' onclick='movimiento.eliminar_produccion("+p.Codigo+")' title='ELiminar movimiento'><i class='fa fa-trash-o' aria-hidden='true'></i></button></td><tr>");
         });
         $("#tabla-detalle-produccion").show();
       });
@@ -204,22 +207,22 @@ var movimiento = {
         })
         .done(function(success) {
           console.log(success);
-          // if(success.respuesta == 1){
-          //   new PNotify({
-          //     title: 'Venta',
-          //     text: 'Se ha eliminado la venta con exito',
-          //     type:'success'
-          //   });
-          //
-          //   document.getElementById("tblTq").deleteRow(0);
-          // }
-          // else {
-          //   new PNotify({
-          //     title: 'Venta',
-          //     text: 'No se ha podido realizar esta operacion',
-          //     type:'info'
-          //   });
-          // }
+          if(success.respuesta == 1){
+            new PNotify({
+              title: 'Producción',
+              text: 'produccion eliminada con exito',
+              type:'success'
+            });
+
+            document.getElementById("tblprod").deleteRow(0);
+          }
+          else {
+            new PNotify({
+              title: 'Producción',
+              text: 'No se ha podido realizar esta operacion',
+              type:'info'
+            });
+          }
 
         });
       }).on('pnotify.cancel', function() {
