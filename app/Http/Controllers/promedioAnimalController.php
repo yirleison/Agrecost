@@ -9,6 +9,8 @@ use App\Model\Corral_animal;
 use App\Model\Animal;
 use App\Model\Promedio_animal;
 use App\Model\Produccion_corral;
+use App\Model\Movimiento;
+
 use Datatables;
 
 
@@ -53,21 +55,117 @@ class promedioAnimalController extends Controller
      */
     public function store(Request $request)
     {
-       $datos = $request->all();
 
-       for($i=0; $i<count($datos["codigo"]); $i++){
 
-        var_dump(json_encode($datos["cantidad"][$i]));
+        $datos = $request->all();
 
-        $r = DB::table('promedio_animal')->insert([
+        for($i=0; $i<count($datos["codigo"]); $i++){
 
-            "Codigo_animal"=>$datos["codigo"][$i],
-            "Fecha"=>date('Y-m-d'),
-            "Cantidad_leche"=>$datos["cantidad"][$i]
+            var_dump(json_encode($datos["cantidad"][$i]));
 
+            $r = DB::table('promedio_animal')->insert([
+
+                "Codigo_animal"=>$datos["codigo"][$i],
+                "Fecha"=>date('Y-m-d'),
+                "Cantidad_leche"=>$datos["cantidad"][$i]
+
+                ]);
+        }
+        
+        
+        $ms =0;
+        $cont = 0;
+        $codmovi = null;
+        $tq_existencia = [];
+        $aux = 0;
+        $cantllega=$request->input('total');
+
+        try {
+
+          $tanques = DB::table('tanque')->select('tanque.*')
+          ->where('Estado','=','Disponible')
+          ->orwhere('Estado','=','Lleno')
+          ->orderBy('Codigo','ASC')->get()->toArray();
+
+          $codmovi = DB::table('movimiento')->insertGetId([
+            'Tipo_movimiento' =>'movimiento',
+            'Cantidad' => $request->input('total'),
+            'Fecha' => date('Y-m-d')
             ]);
-    }
-     //
+
+          if ($codmovi != null) {
+
+            foreach($tanques as $key => $value){
+              $updtanque = [];
+            // Sumando la cantidad del tanque mas la que llega
+              $can_cp = ($value->Cantidad + $cantllega);
+
+              if($can_cp == $value->Capacidad ){
+
+                // Aqui estamos haciendo un array con los campos de dellate movimiento para los reportes e irlo actualizar
+                // despues del ciclo
+                array_push($tq_existencia,["Codigo"=>$value->Codigo,"Cantidad"=> $cantllega]);
+
+                // Actualizamos el tanque de acuerdo a la condicion del ciclo
+                $cp_u = ["Cantidad" => ($cantllega + $value->Cantidad),"Estado"=>"Lleno"];
+
+                $cantllega = 0;
+            }else if ($can_cp < $value->Capacidad) {
+
+                array_push($tq_existencia, ["Codigo"=>$value->Codigo,"Cantidad" => $cantllega]);
+
+                $cp_u = ["Cantidad" => ($cantllega + $value->Cantidad)];
+
+                $aux = $cantllega;
+
+                $cantllega = 0;
+
+            }else if ($can_cp > $value->Capacidad ) {
+                // Restamos la capacidad con la cantidad total paraa poder llevarla a otro tanque
+                $r_cap = ($can_cp-$value->Capacidad);
+
+                $cp_u = ["Cantidad" => ($value->Capacidad),"Estado"=>"Lleno"];
+
+                array_push($tq_existencia, ["Codigo"=>$value->Codigo,"Cantidad" => $r_cap]);
+
+                $cantllega =   $r_cap;
+            }
+
+            $up_c =  DB::table('tanque')->where("Codigo", $value->Codigo)->update($cp_u);
+            if ($up_c != null) {
+                $cont++;
+            }
+        }
+        if ($cont > 0) {
+          foreach ($tq_existencia as  $val) {
+            if($val["Cantidad"] != 0){
+              $ex_l = DB::table('existencia_leche')->insert([
+                'Codigo_tanque' => $val["Codigo"],
+                'Codigo_movimiento' =>$codmovi,
+                'Cantidad' =>  $val["Cantidad"]
+                ]);
+          }
+      }
+  }
+  if ($ex_l != null) {
+      $pr_c = Produccion_corral::create([
+        'Codigo_corral'=>$request->input('Corrales'),
+        'Codigo_movimiento'=>$codmovi,
+        'Jornada'=>$request->input('Jornada'),
+        ]);
+  }
+  if ($pr_c != null) {
+      $dt_produ = movimiento::where('Codigo', $codmovi)->get();
+
+      echo 'Se realizo bien';
+      // return json_encode([$dt_produ,"mensaje"=>1]);
+  }
+}
+
+} catch (Exception $e) {
+    echo 'Error';
+}
+
 
 }
 
@@ -98,10 +196,9 @@ class promedioAnimalController extends Controller
  }
 
  public function marcado($id){
-
-
-
- }
+    $var=Animal::select('animal.Marcado')->where('animal.Codigo','=',$id)->get();
+    return json_encode($var);
+}
 
 
 

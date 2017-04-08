@@ -30,14 +30,15 @@
 	<div class="form row">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				{!!Form::select('Animal',$ani, null,['class'=>'form-control' , 'id'=>'Corrales','placeholder'=>'Seleccione el animal' ,'onchange'=>'promedio.marcado(this.value)'])!!}
+				{!!Form::select('Animal',$ani, null,['class'=>'form-control' , 'id'=>'Animal','placeholder'=>'Seleccione el animal' ,'onchange'=>'promedio.marcado(this.value)'])!!}
 
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				{!!Form::text('Marcado',null,['id'=>'Marcado','class'=>'form-control','disabled'])!!}
+				{{-- {!!Form::text('Marcado',null,['id'=>'Marcado','class'=>'form-control','disabled'])!!} --}}
+				<input type="text" id="Marcado" name="Marcado" class="form-control">
 			</div>
 		</div>
 	</div>

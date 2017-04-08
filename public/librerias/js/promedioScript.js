@@ -31,19 +31,18 @@ var promedio={
 				columns: [				      
 				{data: 'Codigo', name: 'Codigo'},        
 				{data: 'Nombre', name: 'Nombre'},        
-				{data: 'Cantidad', name: 'Cantidad'},        
+				{data: 'Cantidad', name: 'Cantidad'},      
 
-				// {data: 'action', name: 'action', orderable: false, searchable: false}      
+
 				],"fnRowCallback": function(nRow, aData, iDisplayIndex) {
 					var opciones = $('td:eq(2)', nRow);
-					let html = '<input  onchange="acumulador.calcular()" class="form-control" type="text" id="cantidad" name="cantidad[]" />';
+					let html = '<input   onchange="acumulador.calcular()"  onclick="promedio.teclado('+aData.Codigo+')"  class="form-control" type="text" id="cantidad" name="cantidad[]" />';
 					opciones.html(html);
 
 					var opciones1 = $('td:eq(0)', nRow);
-					let html1 = '<input type="text"  name="codigo[]" value="'+aData.Codigo+'" class="form-control"/>';
+					let html1 = '<label for="" >'+aData.Codigo+'</label><input id="codigo"  name="codigo[]" type="text" value="'+aData.Codigo+'" style="width:20px; visibility :hidden"/>';
 
 					opciones1.html(html1);
-
 					// value="'+aData.id+'" Con esta linea puedo traer un valor de la tabla
 				}
 
@@ -82,7 +81,11 @@ var promedio={
 
 
 		var fd = new FormData(document.getElementById("frmTabla"));
-		
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
 		$.ajax({
 			url: "promedioleche",
 			type: "POST",
@@ -91,37 +94,10 @@ var promedio={
   			contentType: false   // tell jQuery not to set contentType
   		});
 
-
-		var datos={
-			Fecha:$("#Fecha").val(),
-			Jornada:$("#Jornada").val(),
-			Corral:$("#Corrales").val(),
-			Total:$("#to").text(),
-			
-
-		};
-
-		console.log(datos);
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			url: '/promedioleche/guardarproduccion',
-			type: 'post',
-			dataType: 'json',
-			data: datos,
-		});
-		
-		
-		
-
 	},
 
 	marcado:function($data){
-		var cod=$data;
-		console.log(cod);
+		var cod=$data;	
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -130,10 +106,28 @@ var promedio={
 		$.ajax({
 			url: '/promedioleche/marcado/'+cod,
 			type: 'get',			
+		}).done(function(dato){
+alert(dato);
+			$("#Marcado").val(dato);
 		});
 
+	},
+
+	teclado:function(date){
+
+		$("#odalTeclado").modal();
 
 
+		$(function(){		
+		// Javascript para el teclado numerico
+		$('.num').click(function () {
+			var num = $(this);
+			var text = $.trim(num.find('.txt').clone().children().remove().end().text());
+			var numero = $('#numero');
+			$(numero).val(numero.val() + text);
+		});
+		// Fin del javascript
+	});
 
 	}
 
