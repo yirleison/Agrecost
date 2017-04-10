@@ -241,6 +241,7 @@
 <script src="/librerias/js/Venta_animalScript.js"></script>
 <script src="/librerias/jquery-validate/jquery.validate.min.js"></script>
 <script src="/librerias/jquery-validate/additional-methods.min.js"></script>
+<script src="/librerias/jquery-validate/messages_es.min.js"></script>
 <script src="/librerias/js/agrecost.validaciones.js"></script>
 <script type="text/javascript" src="/librerias/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="/librerias/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>

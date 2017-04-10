@@ -94,31 +94,31 @@ var promedio={
   			contentType: false   // tell jQuery not to set contentType
   		});
 
-	},
+  	},
 
-	marcado:function($data){
-		var cod=$data;	
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			url: '/promedioleche/marcado/'+cod,
-			type: 'get',			
-		}).done(function(dato){
-alert(dato);
-			$("#Marcado").val(dato);
-		});
+  	marcado:function($data){
+  		var cod=$data;	
+  		$.ajaxSetup({
+  			headers: {
+  				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  			}
+  		});
+  		$.ajax({
+  			url: '/promedioleche/marcado/'+cod,
+  			type: 'get',			
+  		}).done(function(dato){
+  			alert(dato);
+  			$("#Marcado").val(dato);
+  		});
 
-	},
+  	},
 
-	teclado:function(date){
+  	teclado:function(date){
 
-		$("#odalTeclado").modal();
+  		$("#odalTeclado").modal();
 
 
-		$(function(){		
+  		$(function(){		
 		// Javascript para el teclado numerico
 		$('.num').click(function () {
 			var num = $(this);
@@ -129,6 +129,6 @@ alert(dato);
 		// Fin del javascript
 	});
 
-	}
+  	}
 
-}
+  }

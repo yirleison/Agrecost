@@ -10,6 +10,7 @@ use App\Model\Animal;
 use App\Model\Promedio_animal;
 use App\Model\Produccion_corral;
 use App\Model\Movimiento;
+use Notify;
 
 use Datatables;
 
@@ -71,9 +72,7 @@ class promedioAnimalController extends Controller
 
                 ]);
         }
-        
-        
-        $ms =0;
+
         $cont = 0;
         $codmovi = null;
         $tq_existencia = [];
@@ -88,7 +87,7 @@ class promedioAnimalController extends Controller
           ->orderBy('Codigo','ASC')->get()->toArray();
 
           $codmovi = DB::table('movimiento')->insertGetId([
-            'Tipo_movimiento' =>'movimiento',
+            'Tipo_movimiento' =>'Produccion',
             'Cantidad' => $request->input('total'),
             'Fecha' => date('Y-m-d')
             ]);
@@ -102,14 +101,14 @@ class promedioAnimalController extends Controller
 
               if($can_cp == $value->Capacidad ){
 
-                // Aqui estamos haciendo un array con los campos de dellate movimiento para los reportes e irlo actualizar
-                // despues del ciclo
+                // Aqui estamos haciendo un array con los campos de dellate movimiento para los reportes e irlo actualizar // despues del ciclo
                 array_push($tq_existencia,["Codigo"=>$value->Codigo,"Cantidad"=> $cantllega]);
 
                 // Actualizamos el tanque de acuerdo a la condicion del ciclo
                 $cp_u = ["Cantidad" => ($cantllega + $value->Cantidad),"Estado"=>"Lleno"];
 
                 $cantllega = 0;
+                
             }else if ($can_cp < $value->Capacidad) {
 
                 array_push($tq_existencia, ["Codigo"=>$value->Codigo,"Cantidad" => $cantllega]);
@@ -155,15 +154,13 @@ class promedioAnimalController extends Controller
         ]);
   }
   if ($pr_c != null) {
-      $dt_produ = movimiento::where('Codigo', $codmovi)->get();
-
-      echo 'Se realizo bien';
-      // return json_encode([$dt_produ,"mensaje"=>1]);
+      $dt_produ = movimiento::where('Codigo', $codmovi)->get();     
+      Notify::success('Se guardo correctamente','Noticia');
   }
 }
 
 } catch (Exception $e) {
-    echo 'Error';
+    Notify::warning('Error al guardar , intenta de nuevo','Noticia');
 }
 
 
@@ -179,23 +176,23 @@ class promedioAnimalController extends Controller
 
 
     public function get($id){
-     $variable=Animal::select('animal.Nombre','animal.Codigo')
-     ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
-     ->where('corral_animal.Codigo_corral','=',$id)
-     ->get();
+       $variable=Animal::select('animal.Nombre','animal.Codigo')
+       ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
+       ->where('corral_animal.Codigo_corral','=',$id)
+       ->get();
 
-     return Datatables::of($variable)
-     ->addColumn('Cantidad',"")
-     ->make(true);
- }
-
-
- public function show($id){
+       return Datatables::of($variable)
+       ->addColumn('Cantidad',"")
+       ->make(true);
+   }
 
 
- }
+   public function show($id){
 
- public function marcado($id){
+
+   }
+
+   public function marcado($id){
     $var=Animal::select('animal.Marcado')->where('animal.Codigo','=',$id)->get();
     return json_encode($var);
 }

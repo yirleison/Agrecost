@@ -80,7 +80,6 @@
 		</div>
 	</div>	
 </div>
-{!!Form::close()!!}
 
 <br>
 
@@ -99,7 +98,8 @@
 
 	</div>
 </div>
-</div>
+{!!Form::close()!!}
+
 
 
 <div class="row">
@@ -230,14 +230,52 @@
 
 	<script>
 
-		$("#Jornada").select2();
-		$("#Corrales").select2();
-
 
 		$(function(){
 			$("#total").hide();
 			$("#lblTotal").hide();		
 		});
+
+		$("#Jornada").select2();
+		$("#Corrales").select2();
+
+		// Jquery validate para los campos
+		$( "#frmTabla" ).validate({
+			onsubmit: true,
+			onfocusout: true,
+			errorClass: 'help-block',
+			errorElement: 'div',
+			errorPlacement: function(error, e) {
+				jQuery(e).parents('.form-group').append(error);
+			},
+			highlight: function(e) {
+				var elem = jQuery(e);
+				elem.closest('.form-group').removeClass('has-error').addClass('has-error');
+				elem.closest('.form-group').append("<i class='fa fa-remove'></i>");
+				elem.closest('.help-block').remove();
+			},
+			success: function(e) {
+				var elem = jQuery(e);
+				elem.closest('.form-group').removeClass('has-error');
+				elem.closest('.help-block').remove();
+			},
+			rules: {
+				Fecha:{
+					required: true,
+					// digits: true Para requerir solo numeros
+				},
+				Corrales:{
+					required:true,
+
+				},
+				Jornada:{
+					required:true
+
+				}
+			}
+		});
+
+		
 
 
 		// Function para poder sumar el total de leche debajo de la tabla
