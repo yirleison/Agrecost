@@ -193,8 +193,17 @@ class promedioAnimalController extends Controller
    }
 
    public function marcado($id){
-    $var=Animal::select('animal.Marcado')->where('animal.Codigo','=',$id)->get();
-    return json_encode($var);
+
+    $var=Animal::select('Marcado')->where('Codigo','=',$id)->get();
+
+    $thearray = (array) $var;
+    var_dump( $thearray );
+
+    $thearray = get_object_vars( $var );
+    var_dump( $thearray );
+    return json_encode($thearray);
+    exit;
+    return view('promedio.promedio_por_animal',compact('var'));
 }
 
 

@@ -37,7 +37,7 @@
 		<br>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				{{-- {!!Form::text('Marcado',null,['id'=>'Marcado','class'=>'form-control','disabled'])!!} --}}
+				{{-- {!!Form::text('Marcado',null,['id'=>'Marcado','class'=>'form-control','disabled','value'=> '{{ $var}}'])!!} --}}
 				<input type="text" id="Marcado" name="Marcado" class="form-control">
 			</div>
 		</div>
