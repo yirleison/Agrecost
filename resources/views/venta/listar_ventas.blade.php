@@ -3,6 +3,7 @@
 
 @section('contenedor')
 <table class="table table-bordered table-responsive table-striped" id="tblVenta">
+<input type="button" class="btn btn-success" value="Exportar ventas a excel" onclick="window.location='{{url("/ventaAnimal/excel")}}'">
 	<thead>
 		<tr>
 			<th>Animal</th>
@@ -146,6 +147,7 @@
 
 						<table id="tabla_venta" class="table table-bordered table-responsive table-hover table-bordered">
 							<thead>
+
 								<tr>
 									<th>Marcado</th> 
 									<th>Nombre</th> 

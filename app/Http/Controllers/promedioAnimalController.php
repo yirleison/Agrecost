@@ -57,7 +57,7 @@ class promedioAnimalController extends Controller
     public function store(Request $request)
     {
 
-
+        
         $datos = $request->all();
 
         for($i=0; $i<count($datos["codigo"]); $i++){
@@ -176,23 +176,23 @@ class promedioAnimalController extends Controller
 
 
     public function get($id){
-       $variable=Animal::select('animal.Nombre','animal.Codigo')
-       ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
-       ->where('corral_animal.Codigo_corral','=',$id)
-       ->get();
+     $variable=Animal::select('animal.Nombre','animal.Codigo')
+     ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
+     ->where('corral_animal.Codigo_corral','=',$id)
+     ->get();
 
-       return Datatables::of($variable)
-       ->addColumn('Cantidad',"")
-       ->make(true);
-   }
-
-
-   public function show($id){
+     return Datatables::of($variable)
+     ->addColumn('Cantidad',"")
+     ->make(true);
+ }
 
 
-   }
+ public function show($id){
 
-   public function marcado($id){
+
+ }
+
+ public function marcado($id){
 
     $var=Animal::select('Marcado')->where('Codigo','=',$id)->get();
 

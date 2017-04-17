@@ -100,15 +100,7 @@
 							<tbody>
 
 							</tbody>
-						</table>
-						
-
-
-						<div id="area-example"></div>
-						<div class="modal-footer">
-							{!!Form::button('Enviar',['class'=>'btn btn-success', 'onclick'=>''])!!}	
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-						</div>
+						</table>						
 					</div>
 				</div>
 			</div>
@@ -126,31 +118,9 @@
 	<script>    
 		// ventas.editar_ventas();
 		ventas.table_venta();
+		validar.validarVenta();
 		
 
-
-		$("#frmRegister").validate({
-
-			rules : {
-				Fecha_venta:{
-					required:true,
-					date: true
-				},
-
-				Valor:{
-					required:true,
-				},
-				Animal:{
-					required:true,
-				}, 
-				errorPlacement: function (error, element) {
-					var name = $(element).attr("name");
-					error.appendTo($("#" + name + "_validate"));
-				},
-				
-			}
-
-		});
 
 		$('#date').datepicker({
 			language: "es",
@@ -165,7 +135,7 @@
 
 		})
 
-		$("#animal_modal").select2();
+
 
 		
 	</script>

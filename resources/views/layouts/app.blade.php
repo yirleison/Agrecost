@@ -239,6 +239,7 @@
 <script src="/librerias/js/movimiento.js"></script>
 <script src="/librerias/js/promedioScript.js"></script>
 <script src="/librerias/js/Venta_animalScript.js"></script>
+<script src="/librerias/js/validaciones_s.js"></script>
 <script src="/librerias/jquery-validate/jquery.validate.min.js"></script>
 <script src="/librerias/jquery-validate/additional-methods.min.js"></script>
 <script src="/librerias/jquery-validate/messages_es.min.js"></script>

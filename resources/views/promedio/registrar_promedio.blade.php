@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-				{!!Form::select('Jornada',['Mañana'=>'Mañana' , 'Tarde'=>'Tarde'],null,['class'=>'form-control' , 'id'=>'Jornada','placeholder'=>'Ingrese jornada'])!!}
+				{!!Form::select('Jornada',[''=>'Ingrese la jornada','Mañana'=>'Mañana' , 'Tarde'=>'Tarde'],null,['class'=>'form-control' , 'id'=>'Jornada'])!!}
 			</div>
 		</div>
 
@@ -80,6 +80,7 @@
 		</div>
 	</div>	
 </div>
+{!!Form::close()!!}
 
 <br>
 
@@ -98,7 +99,6 @@
 
 	</div>
 </div>
-{!!Form::close()!!}
 
 
 
@@ -229,58 +229,20 @@
 	@section('scripts')
 
 	<script>
-
-	
-		// Jquery validate para los campos
-		$( "#frmTabla" ).validate({
-			// onsubmit: true,
-			// onfocusout: true,
-			// errorClass: 'help-block',
-			// errorElement: 'div',
-			// errorPlacement: function(error, e) {
-			// 	jQuery(e).parents('.form-group').append(error);
-			// },
-			// highlight: function(e) {
-			// 	var elem = jQuery(e);
-			// 	elem.closest('.form-group').removeClass('has-error').addClass('has-error');
-			// 	elem.closest('.form-group').append("<i class='fa fa-remove'></i>");
-			// 	elem.closest('.help-block').remove();
-			// },
-			// success: function(e) {
-			// 	var elem = jQuery(e);
-			// 	elem.closest('.form-group').removeClass('has-error');
-			// 	elem.closest('.help-block').remove();
-			// },
-			rules: {
-				Fecha:{
-					required: true,
-					// digits: true Para requerir solo numeros
-				},
-				Corrales:{
-					required:true,
-
-				},
-				Jornada:{
-					required:true
-
-				},
-				cantidad:{
-					required:true
-
-				}
-			}
-		});
+		promedio.guardar();
+		validar.validarPromedio();
 
 		$(function(){
 			$("#total").hide();
-			$("#lblTotal").hide();		
+			$("#lblTotal").hide();	
 		});
+
+		
 
 		$("#Jornada").select2();
 		$("#Corrales").select2();
 
 		// Function para poder sumar el total de leche debajo de la tabla
-
 		var acumulador = {
 			calcular:function(){
 
@@ -307,7 +269,7 @@
 
 
 // Cargar funciones de otros scripts
-promedio.guardar();
+
 // Fin de cargar
 
 

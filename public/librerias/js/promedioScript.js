@@ -36,7 +36,7 @@ var promedio={
 
 				],"fnRowCallback": function(nRow, aData, iDisplayIndex) {
 					var opciones = $('td:eq(2)', nRow);
-					let html = '<input required="true" digits="true" maxlength="3" onchange="acumulador.calcular()"  onclick="promedio.teclado('+aData.Codigo+')"  class="form-control" type="number" id="cantidad" name="cantidad[]" />';
+					let html = '<input  digits="true" maxlength="3" onchange="acumulador.calcular()"  onclick="promedio.teclado('+aData.Codigo+')"  class="form-control" type="number" id="cantidad" name="cantidad[]" />';
 					opciones.html(html);
 
 					var opciones1 = $('td:eq(0)', nRow);
@@ -90,33 +90,44 @@ var promedio={
 			data: fd,
  			processData: false,  // tell jQuery not to process the data  				
   			contentType: false   // tell jQuery not to set contentType
+  		}).done(function(success){
+  			new PNotify({
+  				title:'Noticia',
+  				text:'Se guardo correctamente',
+  				type:'success'
+
+  			});
+  			tabla.ajax.reload();  			
+  			$("#total").val('');
+
+
+  		})
+
+  	},
+
+  	marcado:function(data){
+  		console.log(data);	
+  		$.ajaxSetup({
+  			headers: {
+  				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  			}
+  		});
+  		$.ajax({
+  			url: '/promedioleche/marcado/'+data,
+  			type: 'get',						
+  		}).done(function(dato){
+
+  			$("#Marcado").val(dato);
   		});
 
-	},
+  	},
 
-	marcado:function(data){
-		console.log(data);	
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			url: '/promedioleche/marcado/'+data,
-			type: 'get',						
-		}).done(function(dato){
-			
-			$("#Marcado").val(dato);
-		});
+  	teclado:function(date){
 
-	},
-
-	teclado:function(date){
-
-		$("#odalTeclado").modal();
+  		$("#odalTeclado").modal();
 
 
-		$(function(){		
+  		$(function(){		
 		// Javascript para el teclado numerico
 		$('.num').click(function () {
 			var num = $(this);
@@ -127,6 +138,6 @@ var promedio={
 		// Fin del javascript
 	});
 
-	}
+  	}
 
-}
+  }
