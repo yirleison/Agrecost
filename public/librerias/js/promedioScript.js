@@ -119,8 +119,8 @@ var promedio={
 						columns: [
 						{ data: 'Fecha', name: 'Fecha' },
 						{ data: 'Cantidad_leche', name: 'Cantidad_leche' },
-						{data: 'action', name: 'action', orderable: false, searchable: false}
 						
+
 						
 						],
 						'language': traduccion
