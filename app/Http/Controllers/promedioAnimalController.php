@@ -7,7 +7,7 @@ use DB;
 use App\Model\Corral;
 use App\Model\Corral_animal;
 use App\Model\Animal;
-use App\Model\Promedio_animal;
+use App\Model\promedioAnimal;
 use App\Model\Produccion_corral;
 use App\Model\Movimiento;
 use Notify;
@@ -54,115 +54,109 @@ class promedioAnimalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request)  {
+       $datos = $request->all();
 
-        
-        $datos = $request->all();
+       for($i=0; $i<count($datos["codigo"]); $i++){
 
-        for($i=0; $i<count($datos["codigo"]); $i++){
+        var_dump(json_encode($datos["cantidad"][$i]));
 
-            var_dump(json_encode($datos["cantidad"][$i]));
+        $r = DB::table('promedio_animal')->insert([
 
-            $r = DB::table('promedio_animal')->insert([
+            "Codigo_animal"=>$datos["codigo"][$i],
+            "Fecha"=>date('Y-m-d'),
+            "Cantidad_leche"=>$datos["cantidad"][$i]
 
-                "Codigo_animal"=>$datos["codigo"][$i],
-                "Fecha"=>date('Y-m-d'),
-                "Cantidad_leche"=>$datos["cantidad"][$i]
-
-                ]);
-        }
-
-        $cont = 0;
-        $codmovi = null;
-        $tq_existencia = [];
-        $aux = 0;
-        $cantllega=$request->input('total');
-
-        try {
-
-          $tanques = DB::table('tanque')->select('tanque.*')
-          ->where('Estado','=','Disponible')
-          ->orwhere('Estado','=','Lleno')
-          ->orderBy('Codigo','ASC')->get()->toArray();
-
-          $codmovi = DB::table('movimiento')->insertGetId([
-            'Tipo_movimiento' =>'Produccion',
-            'Cantidad' => $request->input('total'),
-            'Fecha' => date('Y-m-d')
             ]);
+    }
 
-          if ($codmovi != null) {
+    $cont = 0;
+    $codmovi = null;
+    $tq_existencia = [];
+    $aux = 0;
+    $cantllega=$request->input('total');
 
-            foreach($tanques as $key => $value){
-              $updtanque = [];
+
+
+    $tanques = DB::table('tanque')->select('tanque.*')
+    ->where('Estado','=','Disponible')
+    ->orwhere('Estado','=','Lleno')
+    ->orderBy('Codigo','ASC')->get()->toArray();
+
+    $codmovi = DB::table('movimiento')->insertGetId([
+        'Tipo_movimiento' =>'Produccion',
+        'Cantidad' => $request->input('total'),
+        'Fecha' => date('Y-m-d')
+        ]);
+
+    if ($codmovi != null) {
+
+        foreach($tanques as $key => $value){
+          $updtanque = [];
             // Sumando la cantidad del tanque mas la que llega
-              $can_cp = ($value->Cantidad + $cantllega);
+          $can_cp = ($value->Cantidad + $cantllega);
 
-              if($can_cp == $value->Capacidad ){
+          if($can_cp == $value->Capacidad ){
 
                 // Aqui estamos haciendo un array con los campos de dellate movimiento para los reportes e irlo actualizar // despues del ciclo
-                array_push($tq_existencia,["Codigo"=>$value->Codigo,"Cantidad"=> $cantllega]);
+            array_push($tq_existencia,["Codigo"=>$value->Codigo,"Cantidad"=> $cantllega]);
 
                 // Actualizamos el tanque de acuerdo a la condicion del ciclo
-                $cp_u = ["Cantidad" => ($cantllega + $value->Cantidad),"Estado"=>"Lleno"];
+            $cp_u = ["Cantidad" => ($cantllega + $value->Cantidad),"Estado"=>"Lleno"];
 
-                $cantllega = 0;
-                
-            }else if ($can_cp < $value->Capacidad) {
+            $cantllega = 0;
 
-                array_push($tq_existencia, ["Codigo"=>$value->Codigo,"Cantidad" => $cantllega]);
+        }else if ($can_cp < $value->Capacidad) {
 
-                $cp_u = ["Cantidad" => ($cantllega + $value->Cantidad)];
+            array_push($tq_existencia, ["Codigo"=>$value->Codigo,"Cantidad" => $cantllega]);
 
-                $aux = $cantllega;
+            $cp_u = ["Cantidad" => ($cantllega + $value->Cantidad)];
 
-                $cantllega = 0;
+            $aux = $cantllega;
 
-            }else if ($can_cp > $value->Capacidad ) {
+            $cantllega = 0;
+
+        }else if ($can_cp > $value->Capacidad ) {
                 // Restamos la capacidad con la cantidad total paraa poder llevarla a otro tanque
-                $r_cap = ($can_cp-$value->Capacidad);
+            $r_cap = ($can_cp-$value->Capacidad);
 
-                $cp_u = ["Cantidad" => ($value->Capacidad),"Estado"=>"Lleno"];
+            $cp_u = ["Cantidad" => ($value->Capacidad),"Estado"=>"Lleno"];
 
-                array_push($tq_existencia, ["Codigo"=>$value->Codigo,"Cantidad" => $r_cap]);
+            array_push($tq_existencia, ["Codigo"=>$value->Codigo,"Cantidad" => $r_cap]);
 
-                $cantllega =   $r_cap;
-            }
-
-            $up_c =  DB::table('tanque')->where("Codigo", $value->Codigo)->update($cp_u);
-            if ($up_c != null) {
-                $cont++;
-            }
+            $cantllega =   $r_cap;
         }
-        if ($cont > 0) {
-          foreach ($tq_existencia as  $val) {
-            if($val["Cantidad"] != 0){
-              $ex_l = DB::table('existencia_leche')->insert([
-                'Codigo_tanque' => $val["Codigo"],
-                'Codigo_movimiento' =>$codmovi,
-                'Cantidad' =>  $val["Cantidad"]
-                ]);
-          }
+
+        $up_c =  DB::table('tanque')->where("Codigo", $value->Codigo)->update($cp_u);
+        if ($up_c != null) {
+            $cont++;
+        }
+    }
+    if ($cont > 0) {
+      foreach ($tq_existencia as  $val) {
+        if($val["Cantidad"] != 0){
+          $ex_l = DB::table('existencia_leche')->insert([
+            'Codigo_tanque' => $val["Codigo"],
+            'Codigo_movimiento' =>$codmovi,
+            'Cantidad' =>  $val["Cantidad"]
+            ]);
       }
   }
-  if ($ex_l != null) {
-      $pr_c = Produccion_corral::create([
-        'Codigo_corral'=>$request->input('Corrales'),
-        'Codigo_movimiento'=>$codmovi,
-        'Jornada'=>$request->input('Jornada'),
-        ]);
-  }
-  if ($pr_c != null) {
-      $dt_produ = movimiento::where('Codigo', $codmovi)->get();     
-      Notify::success('Se guardo correctamente','Noticia');
-  }
+}
+if ($ex_l != null) {
+  $pr_c = Produccion_corral::create([
+    'Codigo_corral'=>$request->input('Corrales'),
+    'Codigo_movimiento'=>$codmovi,
+    'Jornada'=>$request->input('Jornada'),
+    ]);
+}
+if ($pr_c != null) {
+  $dt_produ = movimiento::where('Codigo', $codmovi)->get();   
+
+
 }
 
-} catch (Exception $e) {
-    Notify::warning('Error al guardar , intenta de nuevo','Noticia');
 }
-
 
 }
 
@@ -176,37 +170,43 @@ class promedioAnimalController extends Controller
 
 
     public function get($id){
-     $variable=Animal::select('animal.Nombre','animal.Codigo')
-     ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
-     ->where('corral_animal.Codigo_corral','=',$id)
-     ->get();
+       $variable=Animal::select('animal.Nombre','animal.Codigo')
+       ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
+       ->where('corral_animal.Codigo_corral','=',$id)
+       ->get();
 
-     return Datatables::of($variable)
-     ->addColumn('Cantidad',"")
-     ->make(true);
- }
-
-
- public function show($id){
+       return Datatables::of($variable)
+       ->addColumn('Cantidad',"")
+       ->make(true);
+   }
 
 
- }
+   public function show($id){
 
- public function marcado($id){
 
-    $var=Animal::select('Marcado')->where('Codigo','=',$id)->get();
+   }
 
-    $thearray = (array) $var;
-    var_dump( $thearray );
+   public function marcado($id){
 
-    $thearray = get_object_vars( $var );
-    var_dump( $thearray );
-    return json_encode($thearray);
-    exit;
-    return view('promedio.promedio_por_animal',compact('var'));
+    $var=DB::table('Animal')
+    ->select('Marcado')
+    ->where('Codigo','=',$id)
+    ->first(); 
+   
+    return json_encode($var);
+
 }
 
+public function tablaPorAnimal($id){
 
+    $variable=promedioAnimal::select('Fecha','Cantidad_leche')->where('Codigo_animal','=',$id)->get(); 
+   return Datatables::of($variable)
+   ->make(true);
+   
+
+     
+
+}
 
     /**
      * Show the form for editing the specified resource.

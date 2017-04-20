@@ -31,9 +31,7 @@
 		</div>
 	</div>
 	<!-- Division izquierda del formulario -->
-	{{-- {!!Form::open(['url'=>'promedioleche','method'=>'post'])!!}	 --}}
-	<div class="form row">
-		
+	<div class="form row">		
 		<div class="row">			
 			<div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-2 col-sm-4 col-sm-offset-2 col-xs-4 col-xs-offset-2">
 				<div class="form-group" style="padding-bottom: 5px">					
@@ -41,12 +39,14 @@
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-				{!!Form::select('Jornada',[''=>'Ingrese la jornada','Mañana'=>'Mañana' , 'Tarde'=>'Tarde'],null,['class'=>'form-control' , 'id'=>'Jornada'])!!}
+				<div class="form-group" style="padding-bottom: 5px">
+					{!!Form::select('Jornada',[''=>'Ingrese la jornada','Mañana'=>'Mañana' , 'Tarde'=>'Tarde'],null,['class'=>'form-control' , 'id'=>'Jornada'])!!}
+				</div>
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col-md-4 col-md-offset-4">
+			<div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-lg-4 col-lg-offset-4">
 				{!!Form::select('Corrales',$input,null,['class'=>'form-control' , 'id'=>'Corrales','onchange'=>'promedio.consulta()','placeholder'=>'Ingrese el corral'])!!}
 
 			</div>
@@ -56,7 +56,7 @@
 	<br>
 	<div class="form row" style="display: none" id="Divpromedio">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-lg-8 col-lg-offset-2">
 
 				<table  class="table table-responsive table-bordered table-striped" id="Tblpromedio">
 					<thead>
@@ -71,7 +71,7 @@
 					</tbody>
 				</table>
 
-				<div class="col-md-2">
+				<div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">
 					<label id="lblTotal" for="">Total</label>					
 					<input readonly type="text" id="total" name="total" class="form-control">
 				</div>
@@ -80,19 +80,66 @@
 		</div>
 	</div>	
 </div>
-{!!Form::close()!!}
 
 <br>
 
+<div id="fondoModalCalculadora">
+	<div id="modalCalculadora">
+		<i id="cerrarCalculadora" class="fa fa-times"></i>
+
+		<div id="calculadora">	
+
+			<input id="pantalla" type="text">
+
+			<div id="numeros">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="1">1</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="2">2</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="3">3</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="4">4</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="5">5</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="6">6</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="7">7</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="8">8</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="9">9</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="" id="borrar">Borrar</div>
+				</div> 
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="num" numero="0">0</div>
+				</div> 
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+{!!Form::close()!!}
 
 
-
-<!-- Botones del formulario -->
 <div class="form row">
 	<div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-3 col-xs-5 col-xs-offset-1">
 
 
-		<button type="submit" id="btnGuardar" onclick="promedio.guardar()" class="btn btn-success"><img src="/librerias/Imagenes/Iconos/guardar.png" /> Guardar</button>	
+		<button  id="btnGuardar" onclick="promedio.guardar()" class="btn btn-success"><img src="/librerias/Imagenes/Iconos/guardar.png" /> Guardar</button>	
 	</div>
 	<div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-1 col-xs-5">
 		<button type="reset" id="btnCancelar" class="btn btn-warning"><img src="/librerias/Imagenes/Iconos/limpiar.png" /> Limpiar</button>
@@ -100,144 +147,60 @@
 	</div>
 </div>
 
-
-
-<div class="row">
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-		<div class="modal fade" id="modalTeclado" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content col-xs-12 col-xs-offset-2 col-sm-12 col-sm-offset-2 col-md-12 col-md-offset-2 col-lg-12 col-lg-offset-2">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>						
-					</div>
-					<div class="modal-body">            
-
-						<div class="container">
-							<div class="row">
-								<div class="col-md-4 col-md-offset-4 phone">
-									<div class="row1">
-										<div class="col-md-12">
-											<input type="tel"    name="numero" id="numero" class="form-control tel" />
-
-											<div class="num-pad">
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															1
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															2 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															3 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															4 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															5 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															6 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															7 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															8 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															9 
-														</div>
-													</div>
-												</div>
-												<div class="span4">
-													<div class="num">
-														<div class="txt">
-															0 
-														</div>
-													</div>
-												</div>
-												<div  onclick="retro()" class="span4">
-													<div class="num">
-														<div class="txt">
-															<span  class="small">
-																Borrar
-															</span> 
-														</div>
-													</div>
-												</div>
-
-											</div>
-											<div class="clearfix">
-											</div>
-											<a onclick="" class="btn btn-success btn-block flatbtn">Enviar</a>
-										</div>
-									</div>									
-								</div>
-							</div>
-						</div>
-						<div id="area-example"></div>
-						<div class="modal-footer">								
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	@endsection
+@endsection
 
 
 
 
 
 
-	@section('scripts')
+@section('scripts')
 
-	<script>
-		promedio.guardar();
-		validar.validarPromedio();
+<script>
 
+
+
+	$("#btnGuardar").click(function() {
+		if ($("#Corrales").val() =="" || $("#Jornada").val()=="") {
+			new PNotify({
+				title: 'Campos vacios',
+				text: 'Por favor completa los campos',
+				type:'error'
+			});
+			return false;
+		}else{
+			var fd = new FormData(document.getElementById("frmTabla"));
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+			$.ajax({
+				url: "promedioleche",
+				type: "POST",
+				data: fd,
+ 			processData: false,  // tell jQuery not to process the data  				
+  			contentType: false   // tell jQuery not to set contentType
+  		}).done(function(success){  			
+  			new PNotify({
+  				title: 'Noticia',
+  				text: 'Se guardo correctamente',
+  				type:'success'
+  			});  			
+
+  		});
+  	}
+
+  });	
+
+
+		// ocultar campos al cargar por completo la pagina
 		$(function(){
 			$("#total").hide();
 			$("#lblTotal").hide();	
-		});
+		});		
+		// fin del ocultar
 
-		
 
 		$("#Jornada").select2();
 		$("#Corrales").select2();
@@ -251,11 +214,9 @@
 					var td = $(e).find('td').eq(2);
  				suma += parseInt($(td).find("input").eq(0).val()||0,10) //numero de la celda 3
  			})
-
 				$("#total").val(suma);
 				$("#total").show();
-				$("#lblTotal").show();
-				
+				$("#lblTotal").show();				
 			}
 		}
 		// Fin de la funcion
@@ -265,20 +226,6 @@
 			$(".tel").val("");
 		}
 		// Fin de la funcion
+	</script>
 
-
-
-// Cargar funciones de otros scripts
-
-// Fin de cargar
-
-
-
-
-
-
-
-
-</script>
-
-@endsection
+	@endsection

@@ -30,35 +30,45 @@
 	<div class="form row">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				{!!Form::select('Animal',$ani, null,['class'=>'form-control' , 'id'=>'Animal','placeholder'=>'Seleccione el animal' ,'onchange'=>'promedio.marcado(this.value)'])!!}
+				{!!Form::select('Animal',$ani, null,['class'=>'form-control' , 'id'=>'Animal','placeholder'=>'Seleccione el animal','onchange'=>'promedio.marcado(this.value)'])!!}
 
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
-				{{-- {!!Form::text('Marcado',null,['id'=>'Marcado','class'=>'form-control','disabled','value'=> '{{ $var}}'])!!} --}}
-				<input type="text" id="Marcado" name="Marcado" class="form-control">
+				{!!Form::text('Marcado',null,['value'=>'.$var.','id'=>'Marcado','class'=>'form-control','readonly'])!!}
 			</div>
 		</div>
 	</div>
 	<br>
 	<br>
 	<br>
+	
+	<div class="form row" style="display: " id="Divpromedio">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-lg-8 col-lg-offset-2">
 
+				<table  class="table table-responsive table-bordered table-striped" id="tblPorAnimal">
+					<thead>
+						<tr>							
+							<th>Fecha de produccion</th>
+							<th>Cantidad de leche</th>
+							<th>Opciones</th>
+						
+						</tr>
+					</thead>
+					<tbody >
 
+					</tbody>
+				</table>
 
+				{{-- <div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">
+					<label id="lblTotal" for="">Total</label>					
+					<input readonly type="text" id="total" name="total" class="form-control">
+				</div> --}}
 
-	<!-- Botones del formulario -->
-	<div class="form row">
-		<div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-3 col-xs-5 col-xs-offset-1">
-
-
-			<button type="submit" id="btnGuardar" onclick="promedio.guardar()" class="btn btn-success"><img src="/librerias/Imagenes/Iconos/guardar.png" /> Guardar</button>	
-		</div>
-		<div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-1 col-xs-5">
-			<button type="reset" id="btnCancelar" class="btn btn-warning"><img src="/librerias/Imagenes/Iconos/limpiar.png" /> Limpiar</button>
-
+			</div>
 		</div>
 	</div>
 </div>
@@ -72,7 +82,23 @@
 
 @section('scripts')
 <script>
-promedio.marcado()
-</script>
+	promedio.marcado()
+	promedio.mandar();	
 
-@endsection
+	$("#Animal").select2();
+
+	var acumulador = {
+		calcular:function(){
+
+			var suma = 0;
+				$('#tbl_promedio tr').each(function(i, e){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
+					var td = $(e).find('td').eq(1);
+ 				suma += parseInt($(td).find("input").eq(0).val()||0,10) //numero de la celda 3
+ 			})
+				$("#total").val(suma);			
+
+			}
+		}
+	</script>
+
+	@endsection

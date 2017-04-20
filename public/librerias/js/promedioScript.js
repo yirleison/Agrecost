@@ -1,5 +1,8 @@
 var tabla=null;
 var variable=null;
+var total;
+var ruta;
+
 var promedio={
 	consulta:function(){
 
@@ -36,7 +39,7 @@ var promedio={
 
 				],"fnRowCallback": function(nRow, aData, iDisplayIndex) {
 					var opciones = $('td:eq(2)', nRow);
-					let html = '<input  digits="true" maxlength="3" onchange="acumulador.calcular()"  onclick="promedio.teclado('+aData.Codigo+')"  class="form-control" type="number" id="cantidad" name="cantidad[]" />';
+					let html = '<input  digits="true" maxlength="3" onchange="acumulador.calcular()"  onclick="promedio.teclado(this)"  class="form-control" type="number" id="cantidad" name="cantidad[]" />';
 					opciones.html(html);
 
 					var opciones1 = $('td:eq(0)', nRow);
@@ -77,67 +80,106 @@ var promedio={
 
 	},
 
-	guardar:function(){
-		var fd = new FormData(document.getElementById("frmTabla"));
+	marcado:function(data){			
+		promedio.mandar(data);
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
 		$.ajax({
-			url: "promedioleche",
-			type: "POST",
-			data: fd,
- 			processData: false,  // tell jQuery not to process the data  				
-  			contentType: false   // tell jQuery not to set contentType
-  		}).done(function(success){
-  			new PNotify({
-  				title:'Noticia',
-  				text:'Se guardo correctamente',
-  				type:'success'
-
-  			});
-  			tabla.ajax.reload();  			
-  			$("#total").val('');
-
-
-  		})
-
-  	},
-
-  	marcado:function(data){
-  		console.log(data);	
-  		$.ajaxSetup({
-  			headers: {
-  				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  			}
-  		});
-  		$.ajax({
-  			url: '/promedioleche/marcado/'+data,
-  			type: 'get',						
-  		}).done(function(dato){
-
-  			$("#Marcado").val(dato);
-  		});
-
-  	},
-
-  	teclado:function(date){
-
-  		$("#odalTeclado").modal();
-
-
-  		$(function(){		
-		// Javascript para el teclado numerico
-		$('.num').click(function () {
-			var num = $(this);
-			var text = $.trim(num.find('.txt').clone().children().remove().end().text());
-			var numero = $('#numero');
-			$(numero).val(numero.val() + text);
+			url: '/promedioleche/marcado/'+data,
+			type: 'get',
+			dataType:'json',						
+		}).done(function(dato){
+			$("#Marcado").val(dato.Marcado);			
 		});
-		// Fin del javascript
-	});
 
-  	}
+	},
 
-  }
+	mandar:function(mar){
+		if ($("#Marcado").val()=='') {
+			return false;
+		}else{
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+			$.ajax({
+				url: '/promedioleche/tablaPorAnimal/'+mar,
+				type: 'get',						
+			}).done(function(){
+
+				$(function() {
+					tabla =  $('#tblPorAnimal').DataTable({
+						processing: true,
+						serverSide: true,
+						ajax: '/promedioleche/tablaPorAnimal/'+mar,
+						columns: [
+						{ data: 'Fecha', name: 'Fecha' },
+						{ data: 'Cantidad_leche', name: 'Cantidad_leche' },
+						{data: 'action', name: 'action', orderable: false, searchable: false}
+						
+						
+						],
+						'language': traduccion
+					});
+				});
+				var traduccion = {
+					"sProcessing":     "Procesando...",
+					"sLengthMenu":     "Mostrar _MENU_ registros",
+					"sZeroRecords":    "No se encontraron resultados",
+					"sEmptyTable":     "Ningún dato disponible en esta tabla",
+					"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+					"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+					"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+					"sInfoPostFix":    "",
+					"sSearch":         "Buscar:",
+					"sUrl":            "",
+					"sInfoThousands":  ",",
+					"sLoadingRecords": "Cargando...",
+					"oPaginate": {
+						"sFirst":    "Primero",
+						"sLast":     "Último",
+						"sNext":     "Siguiente",
+						"sPrevious": "Anterior"
+					},
+					"oAria": {
+						"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+						"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+					}
+				};
+				tabla.destroy();
+			});
+		}
+	},
+
+	teclado:function(date){
+		ruta = $(this);
+		if (window.matchMedia("(max-width:992px)").matches) {
+			$("#fondoModalCalculadora").fadeIn("fast");
+		}
+
+		$(".num").click(function(){
+			var atributo = $(this).attr("numero").toString();
+			var valor = $("#pantalla").val().toString();
+			$("#pantalla").val(valor + atributo);
+			total = $("#pantalla").val();
+		});
+
+		$("#borrar").click(function(event) {
+			$("#pantalla").val('');
+		});
+
+	}
+
+}
+
+$("#cerrarCalculadora").click(function(){
+	$("#fondoModalCalculadora").fadeOut("fast");
+});
+
+$("#borrar").click(function(){
+	$(ruta).val(total);
+});

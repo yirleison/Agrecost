@@ -6,6 +6,7 @@
 <input type="button" class="btn btn-success" value="Exportar ventas a excel" onclick="window.location='{{url("/ventaAnimal/excel")}}'">
 	<thead>
 		<tr>
+		
 			<th>Animal</th>
 			<th>Fecha de venta</th>
 			<th>Valor</th>			
@@ -47,10 +48,7 @@
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
 									<label for="">Fecha de venta</label>								
-									<div class="input-group date" id="date" style="padding-top: 10px ">
-										<input type="text" id="Fecha_venta" name="Fecha_venta" placeholder="fecha de la venta" class="form-control"><span class="input-group-addon">
-										<i class="glyphicon glyphicon-th"></i></span>
-									</div>
+									{!!Form::date('Fecha_venta', \Carbon\Carbon::now(),['id'=>'Fecha_venta' , 'class' => 'form-control']);!!}
 								</div>
 							</div>
 						</div>
@@ -95,12 +93,7 @@
 								</div>								
 								<div class="col-md-4 col-md-offset-1">
 									<label for="">Fecha de nacimiento</label>
-									<div class="input-group" id="date">
-										<input type="text" id="Fecha_nacimiento" name="Fecha_nacimiento" class="form-control" readonly="">
-										<span class="input-group-addon">
-										<i class="glyphicon glyphicon-th"></i>
-										</span>
-									</div>
+									{!!Form::date('Fecha_nacimiento', \Carbon\Carbon::now(),['id'=>'Fecha_nacimiento' , 'class' => 'form-control' ,'readonly']);!!}
 								</div>
 							</div>
 						</div>

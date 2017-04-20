@@ -60,9 +60,9 @@
                   <ul class="nav child_menu">
                     <li><a href="#">Registro Animal</a></li>
                     <li><a href="">Consulta Animal</a></li>
-                    <li><a href="form_validation.html">Venta Animal</a></li>
-                    <li><a href="{{url('promedioleche/poranimal')}}">Promedio Produccion</a></li>
-                    <li><a href="form_wizards.html">Generar Reporte</a></li>
+               
+                    <li><a href="{{url('promedioleche/poranimal')}}">Promedio produccion por animal</a></li>
+              
                   </ul>
                 </li>
                 <li><a><img src="/librerias/Imagenes/Iconos/vaca.png" alt=""> Ventas <span class="fa fa-chevron-down"></span></a>

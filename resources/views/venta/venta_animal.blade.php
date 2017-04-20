@@ -42,7 +42,7 @@
 			<div id="Animal_validate">
 				
 			</div>
-			{!!Form::date('Fecha_venta', \Carbon\Carbon::now(),['id'=>'Fecha_venta' , 'class' => 'form-control' ]);!!}
+			{!!Form::date('Fecha_venta', \Carbon\Carbon::now(),['id'=>'Fecha_venta' , 'class' => 'form-control' ,'readonly']);!!}
 			{{-- <div class="input-group date" id="date" style="padding-bottom: 20px">
 
 				<input type="text" id="Fecha_venta" name="Fecha_venta" placeholder="Ingrese fecha de la venta" class="form-control"><span class="input-group-addon">
@@ -117,8 +117,12 @@
 	@section('scripts')
 	<script>    
 		// ventas.editar_ventas();
+	   jQuery.validator.addMethod("Valor", function (value, element) {
+        return this.optional(element) || /^[0-9]+$/.test(value);
+      }, 'Solo se admiten números');
+
 		ventas.table_venta();
-		validar.validarVenta();
+		validar.validarVenta();		
 		
 
 

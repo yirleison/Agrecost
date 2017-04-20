@@ -91,6 +91,8 @@ Route::get('/promedioleche/listar','promedioAnimalController@listar');
 Route::post('/promedioleche/guardarproduccion','promedioAnimalController@guardarP');
 Route::get('/promedioleche/poranimal','promedioAnimalController@vistapromedio_animal');
 Route::get('/promedioleche/marcado/{id}','promedioAnimalController@marcado');
+Route::get('/promedioleche/tablaPorAnimal/{id}','promedioAnimalController@tablaPorAnimal');
+
 // Fina de las rutas del promedio de leche por animal
 
 //Rutas movimiento.....
