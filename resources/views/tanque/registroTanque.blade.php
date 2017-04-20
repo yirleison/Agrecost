@@ -4,6 +4,7 @@
 @section('contenedor')
 	<!-- Cuerpo del formulario, aca deben ir todos los input y demas elementos -->
 	<link rel="stylesheet" href="/librerias/css/Estilo.css">
+	
 	{!!Form::open(array('route'=>'registrar-tanque', 'method'=>'post','id'=>'registrar-tanque','autocomplete'=>'off'))!!}
 	{!!Form::token()!!}
 	<div id="formulario"  class="row">

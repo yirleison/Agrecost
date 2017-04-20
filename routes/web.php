@@ -96,12 +96,15 @@ Route::get('/promedioleche/tablaPorAnimal/{id}','promedioAnimalController@tablaP
 // Fina de las rutas del promedio de leche por animal
 
 //Rutas movimiento.....
-Route::get('movimiento','movimientoController@index');
-Route::get('movimiento/tabla/tanques','movimientoController@listar_tanques');
-Route::post('venta/registro','movimientoController@registrar_venta');
-Route::post('movimiento/eliminar/venta','movimientoController@eliminar_venta');
-Route::post('movimiento/eliminar/produccion','movimientoController@eliminar_produccion');
-Route::post('movimiento/registro/produccion','movimientoController@registrar_produccion');
+Route::get('/movimiento','movimientoController@index');
+Route::get('/movimiento/tabla/tanques','movimientoController@listar_tanques');
+Route::post('/venta/registro','movimientoController@registrar_venta');
+Route::post('/movimiento/eliminar/venta','movimientoController@eliminar_venta');
+Route::post('/movimiento/eliminar/produccion','movimientoController@eliminar_produccion');
+Route::post('/movimiento/registro/produccion','movimientoController@registrar_produccion');
+Route::get('/consultar/movimiento','movimientoController@consultar_movimiento');
+Route::get('/traer/movimiento/{mov}','movimientoController@ver_movimientos');
+Route::post('/traer/movimiento/jornada','movimientoController@ver_movimientos_jornada');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
