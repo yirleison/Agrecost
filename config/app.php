@@ -181,8 +181,9 @@ return [
     Collective\Html\HtmlServiceProvider::class,
     Jleon\LaravelPnotify\NotifyServiceProvider::class,
     Yajra\Datatables\DatatablesServiceProvider::class,
-    Maatwebsite\Excel\ExcelServiceProvider::class,
     Barryvdh\DomPDF\ServiceProvider::class,
+    Maatwebsite\Excel\ExcelServiceProvider::class,
+    
 
   ],
 

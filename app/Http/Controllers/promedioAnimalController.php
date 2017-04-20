@@ -202,9 +202,7 @@ public function tablaPorAnimal($id){
     $variable=promedioAnimal::select('Fecha','Cantidad_leche')->where('Codigo_animal','=',$id)->get(); 
    return Datatables::of($variable)
    ->make(true);
-   
-
-     
+ 
 
 }
 
