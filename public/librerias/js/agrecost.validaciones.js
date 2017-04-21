@@ -2,6 +2,7 @@
 var validaciones = {
 
   validarTanque:function () {
+    
     $(document).ready(function(){
       jQuery.validator.setDefaults({
         debug: true,

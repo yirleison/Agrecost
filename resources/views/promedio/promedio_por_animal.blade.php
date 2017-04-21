@@ -54,7 +54,7 @@
 						<tr>							
 							<th>Fecha de produccion</th>
 							<th>Cantidad de leche</th>
-							<th>Opciones</th>
+							
 						
 						</tr>
 					</thead>

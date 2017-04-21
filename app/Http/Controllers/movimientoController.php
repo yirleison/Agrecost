@@ -332,4 +332,27 @@ class movimientoController extends Controller
       }
     }
   }
+
+  public function consultar_movimiento(){
+
+    return view("movimiento.consultar_movimiento");
+  }
+
+   public function ver_movimientos($mov){
+
+   $movimientos = Movimiento::where("Tipo_movimiento",'=',$mov)
+   ->get();
+
+   return json_encode($movimientos);
+  }
+
+  public function ver_movimientos_jornada(Request $data) {
+
+    $mv_jorn = Produccion_corral::select("movimiento.*")
+    ->join("movimiento","movimiento.Codigo","=","produccion_corral.Codigo_movimiento")
+    ->where("Jornada","=",$data->input("jornada"))
+    ->get();
+
+    return json_encode(  $mv_jorn);
+  }
 }
