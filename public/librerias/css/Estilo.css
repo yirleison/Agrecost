@@ -108,3 +108,16 @@ display: none;
 	display: none;
 }
 
+.est_excel {
+	color: white;
+	cursor: pointer;
+	background: #5bc0de;
+	padding: 10px 20px;
+	border: 1px solid #46b8da;
+	border-radius: 5px;
+	font-size: 14px;
+}
+
+.est_excel:hover {
+	background: #46b8da;
+}

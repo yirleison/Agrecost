@@ -17,10 +17,15 @@
   </div>
 
   <div class="row" >
-    <div class="col-md-5" style="margin-top: 30px; font-weight: bold; font-size: 17px;">
+    <div class="col-md-10" style="margin-top: 30px; font-weight: bold; font-size: 17px;">
      <h4 style="margin-bottom: 20px;">Cantidad venta <span class="label label-success"> {{$can_m}} LT</span></h4>
       <h4>Valor venta <span class="label label-warning">$: {{$vm}} </span></h4>
     </div>
+
+    <div class="col-md-2 text-right" style="margin-top: 30px; font-weight: bold; font-size: 17px;">
+      <i class="fa fa-file-excel-o est_excel"> Exportar</i>
+    </div>
+
   </div>
 
   <div class="row" style="margin-top:20px;">
