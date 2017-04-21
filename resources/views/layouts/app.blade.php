@@ -59,172 +59,177 @@
 
                  <li><a href="#"><i class="fa fa-users"></i>Gestion de Usuarios</a></li>
 
-                 <li><a><i class="fa fa-leanpub"></i>Control de existencias<span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-leanpub"></i>Animales<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
 
-                   <li><a href="#">Gestion de Libros</a></li>
-                   <li><a href="#">Gestion de Entradas</a></li>
-                   <li><a href="#">Gestion de Bajas</a></li>    
+                   <li><a href="#">Registro animal</a></li>
+                   <li><a href="#">Consultar animal</a></li>
+                   <li><a href="{{url('promedioleche/poranimal')}}">Promedio produccion por animal</a></li>
 
                  </ul>
                </li>
 
-               <li><a><i class="fa fa-folder"></i>Gestión de Reservas <span class="fa fa-chevron-down"></span></a>
+               <li><a><i class="fa fa-folder"></i>Ventas <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                 <li><a href="#">Registrar Reserva</a></li>
-                 <li><a href="#">Consultar Reserva</a></li>
+                 <li><a href="{{url('ventaAnimal')}}">Registrar venta</a></li>
+                 <li><a href="{{url('ventaAnimal/listar')}}">Consultar venta</a></li>
                </ul>
              </li>
-             <li><a><i class="fa fa-book"></i>Gestión de Prestamos <span class="fa fa-chevron-down"></span></a>
+             <li><a><i class="fa fa-book"></i>Corrales  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="#">Registrar Prestamo</a></li>
-                <li><a href="#">Consultar Prestamo</a></li>
+                <li><a href="corrales">Registro Corrales/a></li>
+                <li><a href="consultar/corrales">Consultar Corrales</a></li>
               </ul>
             </li>
 
 
-            <li><a><i class="fa fa-university"></i>Gestión de Aulas<span class="fa fa-chevron-down"></span></a>
+            <li><a><i class="fa fa-university"></i>Tanques <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="#">Gestión de Aulas</a></li>
-                <li><a href="#">Gestión de Reserva de Aulas</a></li>
-
+                <li><a href="{{route('tanques')}}">Registro Tanques</a></li>
+                <li><a href="{{route('listar-tanques')}}">Consultar Tanque</a></li>
               </ul>
             </li>
 
 
 
-            <li><a href="#"><i class="fa fa-user-times"></i>Gestion de Sanciones</a></li>
+            <li><a href="#"><i class="fa fa-user-times"></i>Produccion</a>
+             <ul class="nav child_menu">
+               <li><a href="/movimiento">Movimiento</a></li>
+               <li><a href="/consultar/movimiento">Consultar movimientos</a></li>
+               <li><a href="{{url('promedioleche')}}">Produccion animal</a></li>
+             </ul>
+           </li>
 
 
-            <li><a><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-down"></span></a>
-              <ul class="nav child_menu">
-                <li><a href="page_403.html">Reporte Prestamo de Libros</a></li>
-                <li><a href="page_403.html">Reporte Usuarios</a></li>
-                <li><a href="page_403.html">Reporte Estadístico</a></li>
-                <li><a href="page_403.html">Reporte Sanciones</a></li>
-              </ul>
-            </li>
-
-          </ul>
-        </div>
-
-      </div>
-      <!--FIN Menu Navegacion-->
-
-      <!--Menu Footer-->
-      <div class="sidebar-footer hidden-small">
-        <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-          <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-        </a>
-      </div>
-      <!--FIN Menu Footer-->
-    </div>
-  </div>
-  <!--Menu Superior -->
-  <div class="top_nav">
-    <div class="nav_menu">
-      <nav>
-        <div class="nav toggle">
-          <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-        </div>
-        <!--Navegacion Mensajes y perfil-->
-        <ul class="nav navbar-nav navbar-right">
-          <li class="">
-            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <img src="/librerias/Imagenes/admin.png" alt="">Administrador
-              <span class=" fa fa-angle-down"></span>
-            </a>
-            <ul class="dropdown-menu dropdown-usermenu pull-right">
-              <li>
-                <a href="login.html"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesion</a>
-              </li>
+           <li><a><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="page_403.html">Reporte Prestamo de Libros</a></li>
+              <li><a href="page_403.html">Reporte Usuarios</a></li>
+              <li><a href="page_403.html">Reporte Estadístico</a></li>
+              <li><a href="page_403.html">Reporte Sanciones</a></li>
             </ul>
           </li>
 
-          <li role="presentation" class="dropdown">
-            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">Notificaciones
-              <i class="fa fa-envelope-o"></i>
-              <span class="badge bg-green">6</span>
-            </a>
-            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-              <li>
-                <a>
-                  <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                  <span>
-                    <span>John Smith</span>
-                    <span class="time">3 mins ago</span>
-                  </span>
-                  <span class="message">
-                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                  <span>
-                    <span>John Smith</span>
-                    <span class="time">3 mins ago</span>
-                  </span>
-                  <span class="message">
-                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                  <span>
-                    <span>John Smith</span>
-                    <span class="time">3 mins ago</span>
-                  </span>
-                  <span class="message">
-                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a>
-                  <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                  <span>
-                    <span>John Smith</span>
-                    <span class="time">3 mins ago</span>
-                  </span>
-                  <span class="message">
-                    Film festivals used to be do-or-die moments for movie makers. They were where...
-                  </span>
-                </a>
-              </li>
-              <li>
-                <div class="text-center">
-                  <a>
-                    <strong>See All Alerts</strong>
-                    <i class="fa fa-angle-right"></i>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </li>
         </ul>
-        <!--FIN Navegacion Mensajes y perfil-->
-      </nav>
-    </div>
-  </div>
-  <!--FIN Menu Superior-->
+      </div>
 
-  <!--CONTENIDO-->
-  <div class="right_col" style="background-color: rgba(255,255,265,0.9)" role="main">
-    @yield('contenedor')
-  </div>
-  <!--FIN CONTENIDO -->
-
-  <!--Pie de pagina-->
-  <footer>
-    <div class="clearfix">
-      <span class="footer">Copyrigth © 2017 Agrecost</span>
     </div>
-  </footer>
-  <!--FIN pie de pagina-->
+    <!--FIN Menu Navegacion-->
+
+    <!--Menu Footer-->
+    <div class="sidebar-footer hidden-small">
+      <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+      </a>
+    </div>
+    <!--FIN Menu Footer-->
+  </div>
+</div>
+<!--Menu Superior -->
+<div class="top_nav">
+  <div class="nav_menu">
+    <nav>
+      <div class="nav toggle">
+        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+      </div>
+      <!--Navegacion Mensajes y perfil-->
+      <ul class="nav navbar-nav navbar-right">
+        <li class="">
+          <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <img src="/librerias/Imagenes/admin.png" alt="">Administrador
+            <span class=" fa fa-angle-down"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-usermenu pull-right">
+            <li>
+              <a href="login.html"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesion</a>
+            </li>
+          </ul>
+        </li>
+
+        <li role="presentation" class="dropdown">
+          <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">Notificaciones
+            <i class="fa fa-envelope-o"></i>
+            <span class="badge bg-green">6</span>
+          </a>
+          <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+            <li>
+              <a>
+                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                  <span>John Smith</span>
+                  <span class="time">3 mins ago</span>
+                </span>
+                <span class="message">
+                  Film festivals used to be do-or-die moments for movie makers. They were where...
+                </span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                  <span>John Smith</span>
+                  <span class="time">3 mins ago</span>
+                </span>
+                <span class="message">
+                  Film festivals used to be do-or-die moments for movie makers. They were where...
+                </span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                  <span>John Smith</span>
+                  <span class="time">3 mins ago</span>
+                </span>
+                <span class="message">
+                  Film festivals used to be do-or-die moments for movie makers. They were where...
+                </span>
+              </a>
+            </li>
+            <li>
+              <a>
+                <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                <span>
+                  <span>John Smith</span>
+                  <span class="time">3 mins ago</span>
+                </span>
+                <span class="message">
+                  Film festivals used to be do-or-die moments for movie makers. They were where...
+                </span>
+              </a>
+            </li>
+            <li>
+              <div class="text-center">
+                <a>
+                  <strong>See All Alerts</strong>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!--FIN Navegacion Mensajes y perfil-->
+    </nav>
+  </div>
+</div>
+<!--FIN Menu Superior-->
+
+<!--CONTENIDO-->
+<div class="right_col" style="background-color: rgba(255,255,265,0.9)" role="main">
+  @yield('contenedor')
+</div>
+<!--FIN CONTENIDO -->
+
+<!--Pie de pagina-->
+<footer>
+  <div class="clearfix">
+    <span class="footer">Copyrigth © 2017 Agrecost</span>
+  </div>
+</footer>
+<!--FIN pie de pagina-->
 </div>
 </div>
 </body>

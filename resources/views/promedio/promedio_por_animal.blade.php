@@ -56,74 +56,22 @@
 							<th>Cantidad de leche</th>					
 						</tr>
 					</thead>
-					<tbody >
+					<tbody>
 
 					</tbody>
 				</table>
 
 
-				<div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">
+				{{-- <div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">
 					<label id="lblTotal" for="">Total</label>					
 					<input readonly type="text" id="total" name="total" class="form-control">
-				</div>
+				</div> --}}
 
 			</div>
 		</div>
 	</div>
 </div>
 {{-- {!!Form::close()!!} --}}
-
-
-
-
-
-<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-	<div class="menu_section">
-		<ul class="nav side-menu">
-			<li><a><img src="/librerias/Imagenes/Iconos/inicio.png" alt=""> Inicio </a>
-			</li>
-			<li><a><img src="/librerias/Imagenes/Iconos/vaca.png" alt=""> Animales <span class="fa fa-chevron-down"></span></a>
-				<ul class="nav child_menu">
-					<li><a href="#">Registro Animal</a></li>
-					<li><a href="">Consulta Animal</a></li>
-
-					<li><a href="{{url('promedioleche/poranimal')}}">Promedio produccion por animal</a></li>
-
-				</ul>
-			</li>
-			<li><a><img src="/librerias/Imagenes/Iconos/vaca.png" alt=""> Ventas <span class="fa fa-chevron-down"></span></a>
-				<ul class="nav child_menu">
-					<li><a href="{{url('ventaAnimal')}}">Venta Animal</a></li>
-					<li><a href="{{url('ventaAnimal/listar')}}">Consultar venta</a></li>
-				</ul>
-			</li>
-			<li><a><img src="/librerias/Imagenes/Iconos/corral.png" alt=""> Corrales <span class="fa fa-chevron-down"></span></a>
-				<ul class="nav child_menu">
-					<li><a href="corrales">Registro Corrales</a></li>
-					<li><a href="consultar/corrales">Consultar Corral</a></li>
-				</ul>
-			</li>
-			<li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Tanques <span class="fa fa-chevron-down"></span></a>
-				<ul class="nav child_menu">
-					<li><a href="{{route('tanques')}}">Registro Tanques</a></li>
-					<li><a href="{{route('listar-tanques')}}">Consultar Tanque</a></li>
-				</ul>
-			</li>
-			<li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Produccion <span class="fa fa-chevron-down"></span></a>
-				<ul class="nav child_menu">
-					<li><a href="/movimiento">Movimiento</a></li>
-					<li><a href="/consultar/movimiento">Consultar movimientos</a></li>
-					<li><a href="{{url('promedioleche')}}">Produccion animal</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-	<div class="menu_section">
-	</div>
-</div>
-
-
-
 
 
 

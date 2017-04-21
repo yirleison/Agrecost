@@ -26,6 +26,7 @@ var promedio={
 			url: '/promedioleche/get/'+array,
 			type: 'get',		
 		}).done(function(){
+			var num=1;
 			
 			tabla=$('#Tblpromedio').DataTable({
 				processing: true,
@@ -36,15 +37,9 @@ var promedio={
 				{data: 'Nombre', name: 'Nombre'},        
 				{data: 'Cantidad', name: 'Cantidad'},      
 
-
-				],"fnRowCallback": function(nRow, aData, iDisplayIndex) {
-					
-					for (var i = 0 ; i <   ; i++) {
-						Things[i]
-					}
-
+				],"fnRowCallback": function(nRow, aData, iDisplayIndex) {					
 					var opciones = $('td:eq(2)', nRow);
-					let html = '<input  digits="true" onchange="acumulador.calcular()"  onclick="promedio.teclado(this)"  class="form-control" type="number" id="promedios" name="cantidad[]" />';
+					let html = '<input  digits="true" onchange="acumulador.calcular()"  onclick="promedio.teclado(this)"  class="form-control" type="number" id="promedios'+num+'" name="cantidad[]" />';
 					opciones.html(html);
 					
 
@@ -54,7 +49,7 @@ var promedio={
 
 					opciones1.html(html1);
 					// value="'+aData.id+'" Con esta linea puedo traer un valor de la tabla
-
+					num++;
 
 				}
 
