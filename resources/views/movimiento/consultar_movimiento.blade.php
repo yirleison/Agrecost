@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/librerias/css/Estilo.css">
 <div id="formulario"  class="row container-fluid"> 
 
- <div class="row">
+ <div class="row" style="margin-top: 20px;">
    <div class="col-md-6 ">
     <div class="form-group">
       <label for="">Movimiento</label>
@@ -15,7 +15,7 @@
   <div class="" id="pro_mov">
        <div class="form-group">
       <label for="">Seleccione Jornada</label>
-      {!!Form::select('jornada',[''=>'Seleccione Jornada','1'=>'Mañana','2'=>'Tarde'],null,['class'=>'form-control','id'=>'jornada'])!!}
+      {!!Form::select('jornada',[''=>'Seleccione Jornada','1'=>'Mañana','2'=>'Tarde'],null,['class'=>'form-control','id'=>'jornada_con'])!!}
     </div>
   </div>
    </div>

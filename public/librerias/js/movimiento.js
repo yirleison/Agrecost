@@ -43,6 +43,33 @@ var movimiento = {
       }
     });
 
+     $("#tbl_dtv").dataTable({
+      "language": {
+        "sProcessing":    "Procesando...",
+        "sLengthMenu":    "Mostrar _MENU_ registros",
+        "sZeroRecords":   "No se encontraron resultados",
+        "sEmptyTable":    "Ningún dato disponible en esta tabla",
+        "sInfo":          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty":     "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered":  "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix":   "",
+        "sSearch":        "Buscar:",
+        "sUrl":           "",
+        "sInfoThousands":  ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+          "sFirst":    "Primero",
+          "sLast":    "Último",
+          "sNext":    "Siguiente",
+          "sPrevious": "Anterior"
+        },
+        "oAria": {
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        }
+      }
+    });
+
   },
   efectos:function () {
 
@@ -124,7 +151,7 @@ var movimiento = {
       movimiento:$("#ocultar-produccion").val(),
       cantidad:$("#cantidad_produccion").val(),
       corral:$("#corrales").val(),
-      jornada:$("#jornada option:selected").text()
+      jornada:$("#jornada_p option:selected").text()
     };
     $.ajaxSetup({
       headers: {
@@ -148,7 +175,7 @@ var movimiento = {
         });
         $("#cantidad_produccion").val('');
         $("#corrales option:selected").text('Seleccione');
-        $("#jornada option:selected").text('Seleccione jornada');
+        $("#jornada_p option:selected").text('Seleccione jornada');
       };
       let tipo = "";
       $.each(datos[0],function(index, p) {
@@ -157,7 +184,7 @@ var movimiento = {
         }
         $("#tblprod").empty();
         $("#cantidad_produccion").val("");
-        $("#jornada").val("");
+        $("#jornada_p").val("");
         $("#tblprod").append(
           "<tr><td>"+p.Codigo+"</td><td>"+
           tipo+"</td><td>"+
@@ -299,7 +326,7 @@ var movimiento = {
           $("#tb_mv").append(
             "<tr><td>"+p.Codigo+"</td><td>"+
             p.Cantidad+"</td><td>"+
-            p.Fecha+"</td><td>"+p.Valor+"</td><td>"+tipo+"</td><td><button class='btn btn-info fa fa-eye'  title='Ver detalle'></button></td><tr>");
+            p.Fecha+"</td><td>"+p.Valor+"</td><td>"+tipo+"</td><td><a href='/traer/detalle/venta/"+p.Codigo+"' class='btn btn-info fa fa-eye' title='Ver detalle'></a></td><tr>");
         });
        })
      }
@@ -317,15 +344,16 @@ var movimiento = {
 
   });
 
-    $("#jornada").change(function() {
-      var j = $("#jornada option:selected").text();
+    $("#jornada_con").change(function() {
+
+      var j = $("#jornada_con option:selected").text();
 
       $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-      if(j == "Mañana") {
+      if(j == "Mañana" || j == "Tarde") {
        $.ajax({
          url: '/traer/movimiento/jornada',
          type: 'post',
@@ -347,13 +375,13 @@ var movimiento = {
           $("#tb_mv_p").append(
             "<tr><td>"+p.Codigo+"</td><td>"+
             p.Cantidad+"</td><td>"+
-            p.Fecha+"</td><td>"+tipo+"</td><td><button class='btn btn-info fa fa-eye'  title='Ver detalle'></button></td><tr>");
+            p.Fecha+"</td><td>"+tipo+"</td><td><a href='/traer/detalle/produccion/"+p.Codigo+"' class='btn btn-info fa fa-eye' title='Ver detalle'></a></td><tr>");
         });
 
        });
 
      }
-      $("#jornada").val("");
+      $("#jornada_con").val("");
    });
   }
 

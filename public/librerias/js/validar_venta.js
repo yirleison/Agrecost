@@ -86,7 +86,7 @@ $("#cantidad_produccion").keyup(function(event) {
 });
 $("#btn-produccion").click(function(event) {
   if($("#corrales option:selected").text()=="Seleccione"
-  || $("#jornada option:selected").text()== "Seleccione Jornada"
+  || $("#jornada_p option:selected").text()== "Seleccione Jornada"
   || $("#cantidad_produccion").val() == ""){
     new PNotify({
       title: 'Campos invalidos',
