@@ -38,15 +38,24 @@ var promedio={
 
 
 				],"fnRowCallback": function(nRow, aData, iDisplayIndex) {
+					
+					for (var i = 0 ; i <   ; i++) {
+						Things[i]
+					}
+
 					var opciones = $('td:eq(2)', nRow);
-					let html = '<input  digits="true" maxlength="3" onchange="acumulador.calcular()"  onclick="promedio.teclado(this)"  class="form-control" type="number" id="cantidad" name="cantidad[]" />';
+					let html = '<input  digits="true" onchange="acumulador.calcular()"  onclick="promedio.teclado(this)"  class="form-control" type="number" id="promedios" name="cantidad[]" />';
 					opciones.html(html);
+					
+
 
 					var opciones1 = $('td:eq(0)', nRow);
 					let html1 = '<label for="" >'+aData.Codigo+'</label><input id="codigo"  name="codigo[]" type="text" value="'+aData.Codigo+'" style="width:20px; visibility :hidden"/>';
 
 					opciones1.html(html1);
 					// value="'+aData.id+'" Con esta linea puedo traer un valor de la tabla
+
+
 				}
 
 			});
@@ -80,80 +89,7 @@ var promedio={
 
 	},
 
-	marcado:function(data){			
-		promedio.mandar(data);
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-		$.ajax({
-			url: '/promedioleche/marcado/'+data,
-			type: 'get',
-			dataType:'json',						
-		}).done(function(dato){
-			$("#Marcado").val(dato.Marcado);			
-		});
 
-	},
-
-	mandar:function(mar){
-		if ($("#Marcado").val()=='') {
-			return false;
-		}else{
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
-			$.ajax({
-				url: '/promedioleche/tablaPorAnimal/'+mar,
-				type: 'get',						
-			}).done(function(){
-
-				$(function() {
-					tabla =  $('#tblPorAnimal').DataTable({
-						processing: true,
-						serverSide: true,
-						ajax: '/promedioleche/tablaPorAnimal/'+mar,
-						columns: [
-						{ data: 'Fecha', name: 'Fecha' },
-						{ data: 'Cantidad_leche', name: 'Cantidad_leche' },
-						
-
-						
-						],
-						'language': traduccion
-					});
-				});
-				var traduccion = {
-					"sProcessing":     "Procesando...",
-					"sLengthMenu":     "Mostrar _MENU_ registros",
-					"sZeroRecords":    "No se encontraron resultados",
-					"sEmptyTable":     "Ningún dato disponible en esta tabla",
-					"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-					"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-					"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-					"sInfoPostFix":    "",
-					"sSearch":         "Buscar:",
-					"sUrl":            "",
-					"sInfoThousands":  ",",
-					"sLoadingRecords": "Cargando...",
-					"oPaginate": {
-						"sFirst":    "Primero",
-						"sLast":     "Último",
-						"sNext":     "Siguiente",
-						"sPrevious": "Anterior"
-					},
-					"oAria": {
-						"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-						"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-					}
-				};
-				tabla.destroy();
-			});
-		}
-	},
 
 	teclado:function(date){
 		ruta = $(this);
