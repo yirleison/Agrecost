@@ -92,7 +92,7 @@
 
 
 
-            <li><a href="#"><i class="fa fa-user-times"></i>Produccion</a>
+            <li><a href="#"><i class="fa fa-user-times"></i>Produccion<span class="fa fa-chevron-down"></span></a>
              <ul class="nav child_menu">
                <li><a href="/movimiento">Movimiento</a></li>
                <li><a href="/consultar/movimiento">Consultar movimientos</a></li>
@@ -101,15 +101,7 @@
            </li>
 
 
-           <li><a><i class="fa fa-bar-chart-o"></i>Reportes<span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-              <li><a href="page_403.html">Reporte Prestamo de Libros</a></li>
-              <li><a href="page_403.html">Reporte Usuarios</a></li>
-              <li><a href="page_403.html">Reporte Estadístico</a></li>
-              <li><a href="page_403.html">Reporte Sanciones</a></li>
-            </ul>
-          </li>
-
+          
         </ul>
       </div>
 
