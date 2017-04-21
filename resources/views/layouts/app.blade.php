@@ -86,6 +86,7 @@
                 <li><a><img src="/librerias/Imagenes/Iconos/leche.png" alt=""> Produccion <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                   <li><a href="/movimiento">Movimiento</a></li>
+                  <li><a href="/consultar/movimiento">Consultar movimientos</a></li>
                   <li><a href="{{url('promedioleche')}}">Produccion animal</a></li>
                 </ul>
               </li>

@@ -69,7 +69,7 @@ class movimientoController extends Controller
           'Valor' =>$input['valor_venta'],
           // 'Jornada'=>$input['jornada'],
           'Fecha' => $date
-        ]);
+          ]);
 
         if ($cmv != null) {
 
@@ -122,7 +122,7 @@ class movimientoController extends Controller
                   'Codigo_tanque' => $valor["Codigo"],
                   'Codigo_movimiento' =>$cmv,
                   'Cantidad' =>  $valor["Cantidad"]
-                ]);
+                  ]);
               }
             }
           }
@@ -152,7 +152,7 @@ class movimientoController extends Controller
     $cmv = null;
     $tq_existencia = [];
     $aux = 0;
-
+   
     try {
 
       $tanques = DB::table('tanque')->select('tanque.*')
@@ -164,7 +164,7 @@ class movimientoController extends Controller
         'Tipo_movimiento' => $input['movimiento'],
         'Cantidad' =>  $ca_m,
         'Fecha' => $date
-      ]);
+        ]);
 
       if ($cmv != null) {
 
@@ -213,7 +213,7 @@ class movimientoController extends Controller
                 'Codigo_tanque' => $val["Codigo"],
                 'Codigo_movimiento' =>$cmv,
                 'Cantidad' =>  $val["Cantidad"]
-              ]);
+                ]);
             }
           }
         }
@@ -222,7 +222,7 @@ class movimientoController extends Controller
             'Codigo_corral'=>$input['corral'],
             'Codigo_movimiento'=>$cmv,
             'Jornada'=>$input['jornada'],
-          ]);
+            ]);
         }
         if ($pr_c != null) {
           $dt_produ = movimiento::where('Codigo', $cmv)->get();
@@ -338,21 +338,46 @@ class movimientoController extends Controller
     return view("movimiento.consultar_movimiento");
   }
 
-   public function ver_movimientos($mov){
+  public function ver_movimientos($mov){
 
    $movimientos = Movimiento::where("Tipo_movimiento",'=',$mov)
    ->get();
 
    return json_encode($movimientos);
-  }
+ }
 
-  public function ver_movimientos_jornada(Request $data) {
+ public function ver_movimientos_jornada(Request $data) {
 
-    $mv_jorn = Produccion_corral::select("movimiento.*")
-    ->join("movimiento","movimiento.Codigo","=","produccion_corral.Codigo_movimiento")
-    ->where("Jornada","=",$data->input("jornada"))
-    ->get();
+  $mv_jorn = Produccion_corral::select("movimiento.*")
+  ->join("movimiento","movimiento.Codigo","=","produccion_corral.Codigo_movimiento")
+  ->where("Jornada","=",$data->input("jornada"))
+  ->get();
 
-    return json_encode(  $mv_jorn);
-  }
+  return json_encode(  $mv_jorn);
+}
+
+public function detalle_venta($id) {
+
+  $dtv = Movimiento::select("movimiento.*","movimiento.Cantidad as can_m","movimiento.Valor as v_m","existencia_leche.*")
+  ->join("existencia_leche","movimiento.Codigo","=","existencia_leche.Codigo_movimiento")
+  ->where("movimiento.Codigo","=",$id)
+  ->get();
+
+  $can_m = $dtv[0]->can_m;
+  $vm = $dtv[0]->v_m;
+  
+  return view("movimiento.detalle_movimiento",compact("dtv","can_m","vm"));
+}
+
+public function detalle_produccion($id) {
+  $dtv = Movimiento::select("movimiento.*","movimiento.Cantidad as can_m","movimiento.Valor as v_m","existencia_leche.*")
+  ->join("existencia_leche","movimiento.Codigo","=","existencia_leche.Codigo_movimiento")
+  ->where("movimiento.Codigo","=",$id)
+  ->get();
+
+  $can_m = $dtv[0]->can_m;
+  $vm = $dtv[0]->v_m;
+    return view("movimiento.detalle_movimiento_produccion",compact("dtv","can_m","vm"));
+}
+
 }
