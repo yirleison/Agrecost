@@ -21,12 +21,12 @@ class ventaAnimalController extends Controller
      */
     public function index()
     {
-        return view('venta.venta_animal');
+      return view('venta.venta_animal');
     }
 
     public function listarView(){
 
-        return view('venta.listar_ventas');
+      return view('venta.listar_ventas');
 
     }
 
@@ -36,9 +36,9 @@ class ventaAnimalController extends Controller
     public function pdf($id){
 
 
-      $variable=Animal::select('Animal.*','raza.Nombre as ra','venta_animal.*')
-      ->join('venta_animal','Animal.Codigo','=','venta_animal.Codigo_animal')
-      ->join('raza','Animal.Codigo_raza','=','raza.Codigo')
+      $variable=Animal::select('animal.*','raza.Nombre as ra','venta_animal.*')
+      ->join('venta_animal','animal.Codigo','=','venta_animal.Codigo_animal')
+      ->join('raza','animal.Codigo_raza','=','raza.Codigo')
       ->where('venta_animal.Codigo','=',$id)
       ->get();
 
@@ -57,174 +57,170 @@ class ventaAnimalController extends Controller
         // return $variable;
 
 
-  }
+    }
 
 
 
-public function excel(){
+    public function excel(){
 
-    \Excel::create('Reporte de ventas de animal' , function ($excel){
+      \Excel::create('Reporte de ventas de animal' , function ($excel){
 
         $excel->sheet('Sheetname',function ($sheet){
 
 
-            $variable=Animal::select('Animal.Marcado','Animal.Nombre','Animal.Fecha_nacimiento as Fecha de nacimiento','Animal.Sexo','Animal.Peso','raza.Nombre as Raza','venta_animal.Fecha_venta as Fecha de venta','venta_animal.Valor','venta_animal.created_at as Creado','venta_animal.updated_at as Ultima modificacion')
-            ->join('venta_animal' , 'Animal.Codigo','=','venta_animal.Codigo_animal')
-            ->join('raza','raza.Codigo','=','Animal.Codigo_raza')
-            ->get();
+          $variable=Animal::select('animal.Marcado','animal.Nombre','animal.Fecha_nacimiento as Fecha de nacimiento','animal.Sexo','animal.Peso','raza.Nombre as Raza','venta_animal.Fecha_venta as Fecha de venta','venta_animal.Valor','venta_animal.created_at as Creado','venta_animal.updated_at as Ultima modificacion')
+          ->join('venta_animal' , 'animal.Codigo','=','venta_animal.Codigo_animal')
+          ->join('raza','raza.Codigo','=','animal.Codigo_raza')
+          ->get();
 
-            $sheet->fromArray($variable);
+          $sheet->fromArray($variable);
 
         });
 
 
-    })->download('xlsx');
+      })->download('xlsx');
+
+    }
 
 
+    public function getAnimal(){    
 
+     $variable=Animal::select('animal.*','estado_animal.Nombre as estado','raza.Nombre as razav')->where('animal.Codigo_estado','=',1)
+     ->join('estado_animal' , 'estado_animal.Codigo','=','animal.Codigo_estado')
+     ->join('raza','raza.Codigo','=','animal.Codigo_raza')
+     ->get();
 
-
-}
-
-
-public function getAnimal(){    
-
-   $variable=Animal::select('Animal.*','estado_animal.Nombre as estado','raza.Nombre as razav')->where('Animal.Codigo_estado','=',1)
-   ->join('estado_animal' , 'estado_animal.Codigo','=','Animal.Codigo_estado')
-   ->join('raza','raza.Codigo','=','Animal.Codigo_raza')
-   ->get();
-
-   return Datatables::of($variable)
-   ->addColumn('action', function ($variable) {
+     return Datatables::of($variable)
+     ->addColumn('action', function ($variable) {
 
             // Boton de la vista en detalle del listar
-    $btnAgregar='<a href="#" class="btn btn-xs btn-primary" onclick="ventas.seleccionarAnimal('.$variable->Codigo.')"><i class="fa fa-plus"></i> Seleccione</a>';
+      $btnAgregar='<a href="#" class="btn btn-xs btn-primary" onclick="ventas.seleccionarAnimal('.$variable->Codigo.')"><i class="fa fa-plus"></i> Seleccione</a>';
 
-    return $btnAgregar;
-})
-   ->make(true);    
+      return $btnAgregar;
+    })
+     ->make(true);    
 
-}
+   }
 
-public function consulta($id){
+   public function consulta($id){
 
-    $consulta=Animal::select('Animal.*')->where('Codigo','=',$id)->get();
+    $consulta=Animal::select('animal.*')->where('Codigo','=',$id)->get();
     return response()->json($consulta);
 
-}
+  }
 
-public function listar_ventas(){
+  public function listar_ventas(){
 
-    $variable=Venta_animal::select('Animal.Nombre','venta_animal.*')
-    ->join('Animal','Animal.Codigo','=','venta_animal.Codigo_animal')
+    $variable=Venta_animal::select('animal.Nombre','venta_animal.*')
+    ->join('animal','animal.Codigo','=','venta_animal.Codigo_animal')
     ->get();
     // return json_decode($variable);
     return Datatables::of($variable)
     ->addColumn('action', function ($variable) {
             // Boton de la vista en detalle del listar
-        $btnAgregar='<a href="#" class="btn btn-xs btn-primary" onclick="ventas.editar_ventas('.$variable
-        ->Codigo.');"><i class="fa fa-plus"></i> Editar</a>';
+      $btnAgregar='<a href="#" class="btn btn-xs btn-primary" onclick="ventas.editar_ventas('.$variable
+      ->Codigo.');"><i class="fa fa-plus"></i> Editar</a>';
 
-        return $btnAgregar;
+      return $btnAgregar;
     })
     ->make(true);  
 
-}
+  }
 
 
-public function create()
-{
+  public function create()
+  {
 
-}
+  }
 
-public function mostrar(){
-
-
-}
-public function store(Request $request,$id){
+  public function mostrar(){
 
 
-
-}
+  }
+  public function store(Request $request,$id){
 
 
 
+  }
 
 
-public function show($id)
-{
+
+
+
+  public function show($id)
+  {
         //
-}
+  }
 
 
-public function edit($id)
-{
+  public function edit($id)
+  {
 
 
-    $variable=Animal::select('Animal.*','raza.Nombre as ra','venta_animal.*')
-    ->join('venta_animal','Animal.Codigo','=','venta_animal.Codigo_animal')
-    ->join('raza','Animal.Codigo_raza','=','raza.Codigo')
+    $variable=Animal::select('animal.*','raza.Nombre as ra','venta_animal.*')
+    ->join('venta_animal','animal.Codigo','=','venta_animal.Codigo_animal')
+    ->join('raza','animal.Codigo_raza','=','raza.Codigo')
     ->where('venta_animal.Codigo','=',$id)
     ->get();
 
 
     return json_decode($variable);
 
-}
+  }
 
 
-public function update(Request $request, $id)
-{
+  public function update(Request $request, $id)
+  {
 
 
     if ($request -> ajax()){
 
-        $vacu=Venta_animal::select('venta_animal.*')->where('venta_animal.Codigo','=',$id)->first();
+      $vacu=Venta_animal::select('venta_animal.*')->where('venta_animal.Codigo','=',$id)->first();
 
-        if($vacu != null){
+      if($vacu != null){
 
 
-            $query= DB::table('venta_animal')
-            ->where('Codigo','=',$id)
-            ->update([
-                'Fecha_venta'=>$request->input('Fecha_venta'),
-                'Valor'=>$request->input('Valor'),
-                
-                ]);
+        $query= DB::table('venta_animal')
+        ->where('Codigo','=',$id)
+        ->update([
+          'Fecha_venta'=>$request->input('Fecha_venta'),
+          'Valor'=>$request->input('Valor'),
 
-            return json_encode(["mensaje" => 1]);
+          ]);
 
-        }else {
+        return json_encode(["mensaje" => 1]);
 
-            return json_encode(["mensaje" =>2]);
-        }
+      }else {
+
+        return json_encode(["mensaje" =>2]);
+      }
 
 
     }
 
-}
+  }
 
-public function destroy($id)
-{
+  public function destroy($id)
+  {
         //
-}
+  }
 
-public function guardarVentas(Request $request){
+  public function guardarVentas(Request $request){
 
 
     Venta_animal::create([
 
-        "Codigo_animal"=>$request->input('Codigo_animal'),
-        "Fecha_venta"=>$request->input('Fecha_venta'),
-        "Valor"=>$request->input('Valor'),
-        Animal::where('Animal.Codigo','=',$request->input('Codigo_animal'))->update(['Animal.Codigo_estado'=>2])
+      "Codigo_animal"=>$request->input('Codigo_animal'),
+      "Fecha_venta"=>$request->input('Fecha_venta'),
+      "Valor"=>$request->input('Valor'),
+      Animal::where('animal.Codigo','=',$request->input('Codigo_animal'))->update(['animal.Codigo_estado'=>2])
 
 
-        ]);
+      ]);
 
     Notify::success('Se guardo correctamente','Noticia');
     return view('venta.venta_animal');
 
-}
+  }
 
 }

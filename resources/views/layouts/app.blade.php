@@ -77,7 +77,7 @@
              </li>
              <li><a><i class="fa fa-book"></i>Corrales  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="corrales">Registro Corrales/a></li>
+                <li><a href="corrales">Registro Corrales</li>
                 <li><a href="consultar/corrales">Consultar Corrales</a></li>
               </ul>
             </li>
@@ -101,7 +101,7 @@
            </li>
 
 
-          
+
         </ul>
       </div>
 
