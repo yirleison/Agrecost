@@ -14,4 +14,6 @@ class Venta_animal extends Model
 
 	];
 
+	public $timestamps=false;
+
 }
