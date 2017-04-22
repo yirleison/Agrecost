@@ -107,6 +107,8 @@ Route::get('/traer/movimiento/{mov}','movimientoController@ver_movimientos');
 Route::post('/traer/movimiento/jornada','movimientoController@ver_movimientos_jornada');
 Route::get('/traer/detalle/venta/{id}','movimientoController@detalle_venta');
 Route::get('/traer/detalle/produccion/{id}','movimientoController@detalle_produccion');
+Route::get('/exportar/detalle/venta/{id}','movimientoController@exp_venta');
+Route::get('/exportar/detalle/produccion/{id}','movimientoController@exp_produccion');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

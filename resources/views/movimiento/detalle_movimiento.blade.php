@@ -23,7 +23,7 @@
     </div>
 
     <div class="col-md-2 text-right" style="margin-top: 30px; font-weight: bold; font-size: 17px;">
-      <i class="fa fa-file-excel-o est_excel"> Exportar</i>
+     <a href="/exportar/detalle/venta/{{$cd_mv}}"><i class="fa fa-file-excel-o est_excel" > Exportar</i></a> 
     </div>
 
   </div>

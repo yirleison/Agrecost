@@ -12,6 +12,7 @@ use Notify;
 use DB;
 use Carbon\Carbon;
 use App\Model\Corral;
+use Maatwebsite\Excel\Facades\Excel;
 
 class movimientoController extends Controller
 {
@@ -145,6 +146,7 @@ class movimientoController extends Controller
     $date = Carbon::now();
     $date = $date->format('Y-m-d');
     $input = $request->all();
+     $ca_m = 0;
     $cp = $input["cantidad"];
     $ca_m = $input["cantidad"];
     $ms =0;
@@ -152,7 +154,9 @@ class movimientoController extends Controller
     $cmv = null;
     $tq_existencia = [];
     $aux = 0;
-   
+
+
+
     try {
 
       $tanques = DB::table('tanque')->select('tanque.*')
@@ -160,13 +164,26 @@ class movimientoController extends Controller
       ->orwhere('Estado','=','Lleno')
       ->orderBy('Codigo','ASC')->get()->toArray();
 
+      $cantidad = 0;
+      $capacidad = 0;
+      $r_t = 0;
+
+      foreach ($tanques as $key => $v) {
+        $cantidad+= $v->Cantidad;
+        $capacidad+= $v->Capacidad;
+      }
+
+      $r_t = ($capacidad -  $cantidad);
+
       $cmv = DB::table('movimiento')->insertGetId([
         'Tipo_movimiento' => $input['movimiento'],
         'Cantidad' =>  $ca_m,
         'Fecha' => $date
         ]);
 
-      if ($cmv != null) {
+      if ($ca_m <= $r_t ) {
+
+       if ($cmv != null) {
 
         foreach($tanques as $key => $value){
           $cp_u = [];
@@ -230,123 +247,128 @@ class movimientoController extends Controller
           return json_encode([$dt_produ,"mensaje"=>1]);
         }
       }
+    }
+    else {
+      return json_encode(["mensaje"=>5]);
+    }
 
+
+  } catch (Exception $e) {
+    return json_encode(["mensaje"=>2]);
+  }
+}
+
+public function eliminar_venta(Request $request){
+  $id_venta = $request->input("id");
+
+  $ex = [];
+  $ex = DB::table("existencia_leche")->where('Codigo_movimiento','=', $id_venta)->get();
+
+  if ($ex != null) {
+
+    $cont = 0;
+    try {
+
+      foreach ($ex as $key => $value) {
+
+        $ta = DB::table('tanque')->where('Codigo','=',$value->Codigo_tanque)->get();
+
+        if ($ta !=null) {
+
+          foreach ($ta as $key1 => $value1) {
+
+            $tan_update = DB::table("tanque")
+            ->where("Codigo",'=',$value->Codigo_tanque)
+            ->update(["Cantidad"=>($value1->Cantidad + $value->Cantidad)]);
+
+            if ($tan_update != null) {
+              $elim_re_ex_leche = Existencia_leche::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
+
+            }
+            if ($elim_re_ex_leche != null) {
+
+              $elim_re_venta = Movimiento::where('Codigo',$id_venta)->delete();
+
+            }
+          }
+        }
+        $cont++;
+      }
+      if ($cont > 0) {
+        return json_encode(["respuesta"=>1]);
+      }
     } catch (Exception $e) {
-      return json_encode(["mensaje"=>2]);
+      return json_encode(["respuesta"=>2]);
     }
   }
+}
 
-  public function eliminar_venta(Request $request){
-    $id_venta = $request->input("id");
+public function eliminar_produccion(Request $request) {
 
-    $ex = [];
-    $ex = DB::table("existencia_leche")->where('Codigo_movimiento','=', $id_venta)->get();
+  $id_produccion = $request->input("id");
 
-    if ($ex != null) {
+  $ex = [];
+  $ex = DB::table("existencia_leche")->where('Codigo_movimiento','=', $id_produccion)->get();
 
-      $cont = 0;
-      try {
+  if ($ex != null) {
 
-        foreach ($ex as $key => $value) {
+    $cont = 0;
+    try {
 
-          $ta = DB::table('tanque')->where('Codigo','=',$value->Codigo_tanque)->get();
+      foreach ($ex as $key => $value) {
 
-          if ($ta !=null) {
+        $ta = DB::table('tanque')->where('Codigo','=',$value->Codigo_tanque)->get();
 
-            foreach ($ta as $key1 => $value1) {
+        if ($ta !=null) {
 
-              $tan_update = DB::table("tanque")
-              ->where("Codigo",'=',$value->Codigo_tanque)
-              ->update(["Cantidad"=>($value1->Cantidad + $value->Cantidad)]);
+          foreach ($ta as $key1 => $value1) {
 
-              if ($tan_update != null) {
-                $elim_re_ex_leche = Existencia_leche::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
+            $tan_update = DB::table("tanque")
+            ->where("Codigo",'=',$value->Codigo_tanque)
+            ->update(["Cantidad"=>($value1->Cantidad - $value->Cantidad)]);
 
-              }
-              if ($elim_re_ex_leche != null) {
+            if ($tan_update) {
 
-                $elim_re_venta = Movimiento::where('Codigo',$id_venta)->delete();
+              $elim_pro_corral = Produccion_corral::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
 
-              }
+            }
+
+            if ($elim_pro_corral != null) {
+
+              $elim_re_ex_leche = Existencia_leche::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
+            }
+            if ($elim_re_ex_leche != null) {
+
+              $elim_re_venta = Movimiento::where('Codigo',$id_produccion)->delete();
+
             }
           }
-          $cont++;
         }
-        if ($cont > 0) {
-          return json_encode(["respuesta"=>1]);
-        }
-      } catch (Exception $e) {
-        return json_encode(["respuesta"=>2]);
+        $cont++;
       }
+      if ($cont > 0) {
+        return json_encode(["respuesta"=>1]);
+      }
+    } catch (Exception $e) {
+      return json_encode(["respuesta"=>2]);
     }
   }
+}
 
-  public function eliminar_produccion(Request $request) {
+public function consultar_movimiento(){
 
-    $id_produccion = $request->input("id");
+  return view("movimiento.consultar_movimiento");
+}
 
-    $ex = [];
-    $ex = DB::table("existencia_leche")->where('Codigo_movimiento','=', $id_produccion)->get();
+public function ver_movimientos($mov){
 
-    if ($ex != null) {
+ $movimientos = Movimiento::where("Tipo_movimiento",'=',$mov)
+ ->get();
 
-      $cont = 0;
-      try {
+ return json_encode($movimientos);
+}
 
-        foreach ($ex as $key => $value) {
-
-          $ta = DB::table('tanque')->where('Codigo','=',$value->Codigo_tanque)->get();
-
-          if ($ta !=null) {
-
-            foreach ($ta as $key1 => $value1) {
-
-              $tan_update = DB::table("tanque")
-              ->where("Codigo",'=',$value->Codigo_tanque)
-              ->update(["Cantidad"=>($value1->Cantidad - $value->Cantidad)]);
-
-              if ($tan_update) {
-
-                $elim_pro_corral = Produccion_corral::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
-                
-              }
-
-              if ($elim_pro_corral != null) {
-
-                $elim_re_ex_leche = Existencia_leche::where('Codigo_movimiento',$value->Codigo_movimiento)->delete();
-              }
-              if ($elim_re_ex_leche != null) {
-
-                $elim_re_venta = Movimiento::where('Codigo',$id_produccion)->delete();
-
-              }
-            }
-          }
-          $cont++;
-        }
-        if ($cont > 0) {
-          return json_encode(["respuesta"=>1]);
-        }
-      } catch (Exception $e) {
-        return json_encode(["respuesta"=>2]);
-      }
-    }
-  }
-
-  public function consultar_movimiento(){
-
-    return view("movimiento.consultar_movimiento");
-  }
-
-  public function ver_movimientos($mov){
-
-   $movimientos = Movimiento::where("Tipo_movimiento",'=',$mov)
-   ->get();
-
-   return json_encode($movimientos);
- }
-
- public function ver_movimientos_jornada(Request $data) {
+public function ver_movimientos_jornada(Request $data) {
 
   $mv_jorn = Produccion_corral::select("movimiento.*")
   ->join("movimiento","movimiento.Codigo","=","produccion_corral.Codigo_movimiento")
@@ -365,8 +387,9 @@ public function detalle_venta($id) {
 
   $can_m = $dtv[0]->can_m;
   $vm = $dtv[0]->v_m;
-  
-  return view("movimiento.detalle_movimiento",compact("dtv","can_m","vm"));
+  $cd_mv =  $id;
+
+  return view("movimiento.detalle_movimiento",compact("dtv","can_m","vm","cd_mv"));
 }
 
 public function detalle_produccion($id) {
@@ -377,7 +400,74 @@ public function detalle_produccion($id) {
 
   $can_m = $dtv[0]->can_m;
   $vm = $dtv[0]->v_m;
-    return view("movimiento.detalle_movimiento_produccion",compact("dtv","can_m","vm"));
+  $cd_mv =  $id;
+
+  return view("movimiento.detalle_movimiento_produccion",compact("dtv","can_m","vm","cd_mv"));
+}
+
+public function exp_venta($dato) {
+
+ $dtd = Movimiento::select("movimiento.Cantidad as Cantidad_venta","movimiento.Tipo_movimiento","movimiento.Valor as Valor_venta ","movimiento.Fecha","existencia_leche.Codigo_tanque","existencia_leche.Cantidad as Salida_leche_tanque")
+ ->join("existencia_leche","movimiento.Codigo","=","existencia_leche.Codigo_movimiento")
+ ->where("movimiento.Codigo","=",$dato)
+ ->get();
+
+ $tipo_m; 
+
+ $datos = [];
+
+ foreach ($dtd as $key => $value) {
+
+  if ($value->Tipo_movimiento == 1) {
+    $tipo_m = "Venta";
+
+    array_push($datos, ["Tipo_movimiento"=>$tipo_m,"Cantidad_movimiento"=>$value->Cantidad_venta,"Fecha"=>$value->Fecha,"Codigo_tanque"=>$value->Codigo_tanque,"Salida_leche_tanque"=>$value->Salida_leche_tanque]);
+  }
+  
+}
+
+Excel::create('Movimientos venta',  function ($excel) use ($datos)  {
+
+  $excel->sheet('Movimientos venta', function($sheet) use ($datos)  {
+
+    $sheet->fromArray($datos);
+  });
+
+})->export('xls');
+
+}
+
+public function exp_produccion($dato) {
+
+  $dtv = Movimiento::select("movimiento.Tipo_movimiento","movimiento.Cantidad as Cantidad_Produccion","movimiento.Fecha","existencia_leche.Codigo_tanque","existencia_leche.Cantidad as Catidad_ingresada_tanque")
+  ->join("existencia_leche","movimiento.Codigo","=","existencia_leche.Codigo_movimiento")
+  ->where("movimiento.Codigo","=",$dato)
+  ->get();
+
+  $tipo_m; 
+
+  $datos = [];
+
+  foreach ($dtv as $key => $value) {
+
+    if ($value->Tipo_movimiento == 2) {
+     $tipo_m = "Produccion";
+
+     array_push($datos, ["Tipo_movimiento"=>$tipo_m,"Cantidad_movimiento"=>$value->Cantidad_Produccion,"Fecha"=>$value->Fecha,"Codigo_tanque"=>$value->Codigo_tanque,"Cantidad_ingresada"=>$value->Catidad_ingresada_tanque]);
+   }
+
+ }
+
+
+ Excel::create('Produccion',  function ($excel) use ($datos)  {
+
+  $excel->sheet('Produccion', function($sheet) use ($datos)  {
+
+    $sheet->fromArray($datos);
+  });
+
+})->export('xls');
+
 }
 
 }
