@@ -49,7 +49,7 @@
 				<i class="glyphicon glyphicon-th"></i></span>
 			</div> --}}
 			<div class="form-group" style="padding-top: 20px">
-				{!!Form::number('Valor',null,['class'=>'form-control' , 'id'=>'Valor','placeholder'=>'Ingrese el valor de la venta'])!!}
+				{!!Form::number('Valor',null,['required','maxlength'=>'7','class'=>'form-control' , 'id'=>'Valor','placeholder'=>'Ingrese el valor de la venta'])!!}
 			</div>
 		</div>
 	</div>
@@ -115,14 +115,10 @@
 	@endsection
 
 	@section('scripts')
-	<script>    
-		// ventas.editar_ventas();
-	   jQuery.validator.addMethod("Valor", function (value, element) {
-        return this.optional(element) || /^[0-9]+$/.test(value);
-      }, 'Solo se admiten números');
-
+	<script> 
 		ventas.table_venta();
-		validar.validarVenta();		
+		validar.validarVenta();	
+		$("#frmRegister").validate();	
 		
 
 
@@ -134,10 +130,8 @@
 
 
 		$("#btn").click(function(){
-
 			$("#mod_animal").modal();
-
-		})
+		});
 
 
 

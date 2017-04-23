@@ -67,16 +67,13 @@ class ventaAnimalController extends Controller
 
         $excel->sheet('Sheetname',function ($sheet){
 
-
-          $variable=Animal::select('animal.Marcado','animal.Nombre','animal.Fecha_nacimiento as Fecha de nacimiento','animal.Sexo','animal.Peso','raza.Nombre as Raza','venta_animal.Fecha_venta as Fecha de venta','venta_animal.Valor','venta_animal.created_at as Creado','venta_animal.updated_at as Ultima modificacion')
+          $variable=Animal::select('animal.Marcado','animal.Nombre','animal.Fecha_nacimiento as Fecha de nacimiento','animal.Sexo','animal.Peso','raza.Nombre as Raza','venta_animal.Fecha_venta as Fecha de venta','venta_animal.Valor')
           ->join('venta_animal' , 'animal.Codigo','=','venta_animal.Codigo_animal')
           ->join('raza','raza.Codigo','=','animal.Codigo_raza')
           ->get();
-
           $sheet->fromArray($variable);
 
         });
-
 
       })->download('xlsx');
 

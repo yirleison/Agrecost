@@ -5,8 +5,7 @@
 <table class="table table-bordered table-responsive table-striped" id="tblVenta">
 <input type="button" class="btn btn-success" value="Exportar ventas a excel" onclick="window.location='{{url("/ventaAnimal/excel")}}'">
 	<thead>
-		<tr>
-		
+		<tr>		
 			<th>Animal</th>
 			<th>Fecha de venta</th>
 			<th>Valor</th>			
@@ -33,6 +32,7 @@
 
 					</div>
 					<div class="modal-body"> 
+					{!!Form::open(['id'=>'frmMo'])!!}
 						<div class="form-group" style="padding-bottom: 5px">
 							{!!Form::text('Codigo',null,['class'=>'form-control' , 'id'=>'Codigo','style'=>'visibility:hidden;'])!!}
 						</div>  
@@ -56,7 +56,7 @@
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
 									<label for="">Valor de la venta</label>
-									{!!Form::number('Valor',null,['class'=>'form-control' ,'id'=>'Valor'])!!}
+									{!!Form::number('Valor',null,['class'=>'form-control' ,'id'=>'Valor','required','maxlength'=>'7'])!!}
 								</div>
 							</div>
 						</div>
@@ -113,10 +113,11 @@
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 							
 
-							<button type="button" class="btn btn-info"  onclick="window.location='{{ url("/ventaAnimal/pdf") }}'">Generar en PDF</button>
+							<button type="button" class="btn btn-info"  onclick="window.location='{{ url("/ventaAnimal/pdf") }}'">Generar en excel</button>
 
 
 						</div>
+						{!!Form::close()!!}
 					</div>
 				</div>
 			</div>
@@ -178,6 +179,7 @@
 	@section('scripts')
 	<script>
 		ventas.listar_ventas()	
+		$("#frmMo").validate();
 
 		$('#date').datepicker({
 			language: "es",

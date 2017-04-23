@@ -140,8 +140,7 @@
 			url: '/promedioleche/marcado/'+id,
 			type: 'get',
 			dataType:'json'		
-		}).done(function(mar){
-			console.log(mar);
+		}).done(function(mar){			
 			$("#Marcado").val(mar.Marcado);
 		});
 
