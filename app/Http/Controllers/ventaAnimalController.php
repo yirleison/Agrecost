@@ -33,7 +33,7 @@ class ventaAnimalController extends Controller
 
 
 
-    public function pdf($id){
+    public function excel_detalle($id){
 
 
       $variable=Animal::select('animal.*','raza.Nombre as ra','venta_animal.*')

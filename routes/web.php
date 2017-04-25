@@ -80,7 +80,7 @@ Route::post('/ventaAnimal/guardar','ventaAnimalController@guardarVentas');
 Route::get('/ventaAnimal/listar','ventaAnimalController@listarView');
 Route::get('/ventaAnimal/listarventas','ventaAnimalController@listar_ventas');
 Route::get('/ventaAnimal/mostrar','ventaAnimalController@mostrar');
-Route::get('/ventaAnimal/pdf/{id}','ventaAnimalController@pdf');
+Route::post('/ventaAnimal/exceldetalle/{id}','ventaAnimalController@excel_detalle');
 Route::get('/ventaAnimal/excel','ventaAnimalController@excel');
 // Final de las rutas de la venta
 

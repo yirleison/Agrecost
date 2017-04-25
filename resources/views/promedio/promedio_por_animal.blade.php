@@ -56,16 +56,16 @@
 							<th>Cantidad de leche</th>					
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tbl_poranimal">
 
 					</tbody>
 				</table>
 
 
-				{{-- <div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">
+				<div class="col-md-2 col-xs-2 col-lg-2 col-sm-2" style="padding-top: 20px">
 					<label id="lblTotal" for="">Total</label>					
 					<input readonly type="text" id="total" name="total" class="form-control">
-				</div> --}}
+				</div>
 
 			</div>
 		</div>
@@ -98,7 +98,11 @@
 		{ data: 'Fecha', name: 'Fecha' },
 		{ data: 'Cantidad_leche', name: 'Cantidad_leche' },
 
-		],
+		],"fnRowCallback": function(nRow, aData, iDisplayIndex) {					
+			var opciones = $('td:eq(1)', nRow);
+			let html = '<input readonly type="number" class="form-control" value="'+aData.Cantidad_leche+'" />';
+			opciones.html(html);
+		},
 		'language': traduccion
 		
 	});
@@ -142,6 +146,7 @@
 			dataType:'json'		
 		}).done(function(mar){			
 			$("#Marcado").val(mar.Marcado);
+			acumulador.calcular();
 		});
 
 	}
@@ -153,7 +158,7 @@
 		calcular:function(){
 
 			var suma = 0;
-				$('#tbl_promedio tr').each(function(i, e){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
+				$('#tbl_poranimal tr').each(function(i, e){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
 					var td = $(e).find('td').eq(1);
  				suma += parseInt($(td).find("input").eq(0).val()||0,10) //numero de la celda 3
  			})

@@ -55,9 +55,9 @@ class promedioAnimalController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)  {
-     $datos = $request->all();
+       $datos = $request->all();
 
-     for($i=0; $i<count($datos["codigo"]); $i++){
+       for($i=0; $i<count($datos["codigo"]); $i++){
 
         var_dump(json_encode($datos["cantidad"][$i]));
 
@@ -93,13 +93,13 @@ class promedioAnimalController extends Controller
     $r_t = ($capacidad -  $cantidad);
     if ($cantllega <= $r_t){
 
-     $codmovi = DB::table('movimiento')->insertGetId([
+       $codmovi = DB::table('movimiento')->insertGetId([
         'Tipo_movimiento' =>'Produccion',
         'Cantidad' => $cantllega,
         'Fecha' => date('Y-m-d')
         ]);
 
-     if ($codmovi != null) {
+       if ($codmovi != null) {
 
         foreach($tanques as $key => $value){
           $updtanque = [];
@@ -169,7 +169,7 @@ if ($pr_c != null) {
 
 }
 }else{
-      return json_encode(["mensaje"=>2]);
+  return json_encode(["mensaje"=>2]);
       // return Notify::error('No se guardo');
 }
 }
@@ -184,23 +184,23 @@ if ($pr_c != null) {
 
 
     public function get($id){
-     $variable=Animal::select('animal.Nombre','animal.Codigo')
-     ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
-     ->where('corral_animal.Codigo_corral','=',$id)
-     ->get();
+       $variable=Animal::select('animal.Nombre','animal.Codigo')
+       ->join('corral_animal','animal.Codigo','=','corral_animal.Codigo_animal')
+       ->where('corral_animal.Codigo_corral','=',$id)
+       ->get();
 
-     return Datatables::of($variable)
-     ->addColumn('Cantidad',"")
-     ->make(true);
- }
-
-
- public function show($id){
+       return Datatables::of($variable)
+       ->addColumn('Cantidad',"")
+       ->make(true);
+   }
 
 
- }
+   public function show($id){
 
- public function marcado($id){
+
+   }
+
+   public function marcado($id){
 
     $var=DB::table('Animal')
     ->select('Marcado')
@@ -215,6 +215,7 @@ public function tablaPorAnimal($id){
 
     $variable=promedioAnimal::select('Fecha','Cantidad_leche')->where('Codigo_animal','=',$id)->get(); 
     return Datatables::of($variable)
+  
     ->make(true);
 
 

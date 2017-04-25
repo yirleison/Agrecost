@@ -32,7 +32,7 @@ var promedio={
 
 			],"fnRowCallback": function(nRow, aData, iDisplayIndex) {					
 				var opciones = $('td:eq(2)', nRow);
-				let html = '<input  required  maxlength="999"  digits="true"  onchange="acumulador.calcular()"  onclick="promedio.teclado(this)"  class="form-control" type="number" id="promedios'+num+'" name="cantidad[]" />';
+				let html = '<input  required  maxlength="2"   digits="true"  onchange="acumulador.calcular()"  onclick="promedio.teclado(this)"  class="form-control" type="number" id="promedios'+num+'" name="cantidad[]" />';
 				opciones.html(html);
 
 				var opciones1 = $('td:eq(0)', nRow);
