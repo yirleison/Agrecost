@@ -3,10 +3,9 @@
 
 @section('contenedor')
 <table class="table table-bordered table-responsive table-striped" id="tblVenta">
-<input type="button" class="btn btn-success" value="Exportar ventas a excel" onclick="window.location='{{url("/ventaAnimal/excel")}}'">
+	<input type="button" class="btn btn-success" value="Exportar ventas a excel" onclick="window.location='{{url("/ventaAnimal/excel")}}'">
 	<thead>
-		<tr>
-		
+		<tr>		
 			<th>Animal</th>
 			<th>Fecha de venta</th>
 			<th>Valor</th>			
@@ -33,6 +32,7 @@
 
 					</div>
 					<div class="modal-body"> 
+						{!!Form::open(['id'=>'frmMo'])!!}
 						<div class="form-group" style="padding-bottom: 5px">
 							{!!Form::text('Codigo',null,['class'=>'form-control' , 'id'=>'Codigo','style'=>'visibility:hidden;'])!!}
 						</div>  
@@ -56,7 +56,7 @@
 							<div class="row">
 								<div class="col-md-6 col-md-offset-3">
 									<label for="">Valor de la venta</label>
-									{!!Form::number('Valor',null,['class'=>'form-control' ,'id'=>'Valor'])!!}
+									{!!Form::number('Valor',null,['class'=>'form-control' ,'id'=>'Valor','required','maxlength'=>'7'])!!}
 								</div>
 							</div>
 						</div>
@@ -113,10 +113,11 @@
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 							
 
-							<button type="button" class="btn btn-info"  onclick="window.location='{{ url("/ventaAnimal/pdf") }}'">Generar en PDF</button>
+							<button type="button" class="btn btn-info"  onclick="excel();" >Generar en excel</button>
 
 
 						</div>
+						{!!Form::close()!!}
 					</div>
 				</div>
 			</div>
@@ -127,65 +128,74 @@
 
 
 	<div class="row">
-	<div class="col-md-12">
-		<div class="modal fade" id="mod_animal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content col-md-10 col-md-offset-2">
+		<div class="col-md-12">
+			<div class="modal fade" id="mod_animal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content col-md-10 col-md-offset-2">
 
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-						<h4 class="modal-title" id="myModalLabel"><i class="fa fa-user" aria-hidden="true"></i> Seleccione el animal</h4>
-					</div>
-					<div class="modal-body">            
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+							<h4 class="modal-title" id="myModalLabel"><i class="fa fa-user" aria-hidden="true"></i> Seleccione el animal</h4>
+						</div>
+						<div class="modal-body">            
 
-						<table id="tabla_venta" class="table table-bordered table-responsive table-hover table-bordered">
-							<thead>
+							<table id="tabla_venta" class="table table-bordered table-responsive table-hover table-bordered">
+								<thead>
 
-								<tr>
-									<th>Marcado</th> 
-									<th>Nombre</th> 
-									<th>Fecha nacimiento</th> 
-									<th>Sexo</th> 
-									<th>Peso</th> 
-									<th>Raza</th> 
-									<th>Estado</th> 
-									<th>Opciones</th> 									
-								</tr>
-							</thead>
-							<tbody>
+									<tr>
+										<th>Marcado</th> 
+										<th>Nombre</th> 
+										<th>Fecha nacimiento</th> 
+										<th>Sexo</th> 
+										<th>Peso</th> 
+										<th>Raza</th> 
+										<th>Estado</th> 
+										<th>Opciones</th> 									
+									</tr>
+								</thead>
+								<tbody>
 
-							</tbody>
-						</table>
-						
-
+								</tbody>
+							</table>
 
 
-						<div id="area-example"></div>
-						<div class="modal-footer">
-							{!!Form::button('Enviar',['class'=>'btn btn-success', 'onclick'=>''])!!}	
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+
+							<div id="area-example"></div>
+							<div class="modal-footer">
+								{!!Form::button('Enviar',['class'=>'btn btn-success', 'onclick'=>''])!!}	
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	@endsection
-
+		@endsection
 
 
-	@section('scripts')
-	<script>
-		ventas.listar_ventas()	
 
-		$('#date').datepicker({
-			language: "es",
-			autoclose: true,
-			format: "yyyy-mm-dd"
-		});
+		@section('scripts')
+		<script>
+			function excel(){
+				var dato=$("#Codigo").val();
+				console.log(dato);
 
-	</script>
+			
+				}
 
 
-	@endsection
+				ventas.listar_ventas()	
+				$("#frmMo").validate();
+
+				$('#date').datepicker({
+					language: "es",
+					autoclose: true,
+					format: "yyyy-mm-dd"
+				});
+
+			</script>
+
+
+			@endsection

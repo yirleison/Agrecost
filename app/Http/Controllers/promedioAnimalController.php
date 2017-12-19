@@ -76,20 +76,30 @@ class promedioAnimalController extends Controller
     $aux = 0;
     $cantllega=$request->input('total');
 
-
-
     $tanques = DB::table('tanque')->select('tanque.*')
     ->where('Estado','=','Disponible')
     ->orwhere('Estado','=','Lleno')
     ->orderBy('Codigo','ASC')->get()->toArray();
 
-    $codmovi = DB::table('movimiento')->insertGetId([
+    $cantidad = 0;
+    $capacidad = 0;
+    $r_t = 0;
+
+    foreach ($tanques as $key => $v) {
+        $cantidad+= $v->Cantidad;
+        $capacidad+= $v->Capacidad;
+    }
+
+    $r_t = ($capacidad -  $cantidad);
+    if ($cantllega <= $r_t){
+
+       $codmovi = DB::table('movimiento')->insertGetId([
         'Tipo_movimiento' =>'Produccion',
-        'Cantidad' => $request->input('total'),
+        'Cantidad' => $cantllega,
         'Fecha' => date('Y-m-d')
         ]);
 
-    if ($codmovi != null) {
+       if ($codmovi != null) {
 
         foreach($tanques as $key => $value){
           $updtanque = [];
@@ -152,12 +162,16 @@ if ($ex_l != null) {
 }
 if ($pr_c != null) {
   $dt_produ = movimiento::where('Codigo', $codmovi)->get();   
-
+  return json_encode(["mensaje"=>1]);
+  // return Notify::success('Se guardo');
 
 }
 
 }
-
+}else{
+  return json_encode(["mensaje"=>2]);
+      // return Notify::error('No se guardo');
+}
 }
 
 
@@ -192,7 +206,7 @@ if ($pr_c != null) {
     ->select('Marcado')
     ->where('Codigo','=',$id)
     ->first(); 
-   
+
     return json_encode($var);
 
 }
@@ -200,9 +214,10 @@ if ($pr_c != null) {
 public function tablaPorAnimal($id){
 
     $variable=promedioAnimal::select('Fecha','Cantidad_leche')->where('Codigo_animal','=',$id)->get(); 
-   return Datatables::of($variable)
-   ->make(true);
- 
+    return Datatables::of($variable)
+  
+    ->make(true);
+
 
 }
 

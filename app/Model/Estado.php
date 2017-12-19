@@ -4,9 +4,9 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Raza extends Model
+class Estado extends Model
 {
-    public $table='raza';
+    public $table='estado_animal';
 
     protected $fillable=['Nombre'];
     public $timestamps=false;

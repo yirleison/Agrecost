@@ -47,7 +47,7 @@
 
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4 col-sm-4 col-sm-offset-4 col-lg-4 col-lg-offset-4">
-				{!!Form::select('Corrales',$input,null,['class'=>'form-control' , 'id'=>'Corrales','onchange'=>'promedio.consulta()','placeholder'=>'Ingrese el corral'])!!}
+				{!!Form::select('Corrales',$input,null,['class'=>'form-control' , 'id'=>'Corrales','onchange'=>'promedio.cargarTblpromedio(this)','placeholder'=>'Ingrese el corral'])!!}
 
 			</div>
 		</div>
@@ -56,7 +56,7 @@
 	<br>
 	<div class="form row" style="display: none" id="Divpromedio">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-lg-8 col-lg-offset-2">
+			<div class="col-md-9 col-md-offset-1 col-xs-9 col-xs-offset-1 col-sm-9 col-sm-offset-1 col-lg-9 col-lg-offset-1">
 
 				<table  class="table table-responsive table-bordered table-striped" id="Tblpromedio">
 					<thead>
@@ -71,7 +71,7 @@
 					</tbody>
 				</table>
 
-				<div class="col-md-2 col-xs-2 col-lg-2 col-sm-2">
+				<div class="col-md-2 col-xs-2 col-lg-2 col-sm-2" style="padding-top: 30px">
 					<label id="lblTotal" for="">Total</label>					
 					<input readonly type="text" id="total" name="total" class="form-control">
 				</div>
@@ -141,10 +141,7 @@
 
 		<button  id="btnGuardar" onclick="promedio.guardar()" class="btn btn-success"><img src="/librerias/Imagenes/Iconos/guardar.png" /> Guardar</button>	
 	</div>
-	<div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-1 col-xs-5">
-		<button type="reset" id="btnCancelar" class="btn btn-warning"><img src="/librerias/Imagenes/Iconos/limpiar.png" /> Limpiar</button>
-
-	</div>
+	
 </div>
 
 @endsection
@@ -157,7 +154,10 @@
 @section('scripts')
 
 <script>
+	promedio.consulta();
+	promedio.cargarTblpromedio();
 
+	$("#frmTabla").validate();
 
 
 	$("#btnGuardar").click(function() {
@@ -181,13 +181,26 @@
 				data: fd,
  			processData: false,  // tell jQuery not to process the data  				
   			contentType: false   // tell jQuery not to set contentType
-  		}).done(function(success){  			
-  			new PNotify({
-  				title: 'Noticia',
-  				text: 'Se guardo correctamente',
-  				type:'success'
-  			});  			
+  		}).done(function(success){ 
+  			console.log(success);
+  			if (success.mensaje == 1) { 
+  			console.log("Entro");			
+  				new PNotify({
+  					title: 'Noticia',
+  					text: 'Se guardo correctamente',
+  					type:'success'
+  				});  			
+  				promedio.re();
+  				$("#total").val('');
+  			}else if(success.mensaje == 2){
+  			console.log("No entro");			
 
+  				new PNotify({
+  					title: 'Noticia',
+  					text: 'La cantidad ingresada supera la capacidad de todos los tanques',
+  					type:'error'
+  				});  	
+  			}
   		});
   	}
 

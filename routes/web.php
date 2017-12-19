@@ -80,7 +80,7 @@ Route::post('/ventaAnimal/guardar','ventaAnimalController@guardarVentas');
 Route::get('/ventaAnimal/listar','ventaAnimalController@listarView');
 Route::get('/ventaAnimal/listarventas','ventaAnimalController@listar_ventas');
 Route::get('/ventaAnimal/mostrar','ventaAnimalController@mostrar');
-Route::get('/ventaAnimal/pdf/{id}','ventaAnimalController@pdf');
+Route::post('/ventaAnimal/exceldetalle/{id}','ventaAnimalController@excel_detalle');
 Route::get('/ventaAnimal/excel','ventaAnimalController@excel');
 // Final de las rutas de la venta
 
@@ -109,6 +109,26 @@ Route::get('/traer/detalle/venta/{id}','movimientoController@detalle_venta');
 Route::get('/traer/detalle/produccion/{id}','movimientoController@detalle_produccion');
 Route::get('/exportar/detalle/venta/{id}','movimientoController@exp_venta');
 Route::get('/exportar/detalle/produccion/{id}','movimientoController@exp_produccion');
+
+
+//Rutas Animal
+Route::post('/Animal/Raza','animalController@registroRaza');
+Route::get('/Animal/Consulta','animalController@ConsultaAnimales');
+Route::get('/Animal/Lista','animalController@ListaAnimales');
+Route::get('/Animal/Editar/{id}','animalController@editar_animal');
+Route::post('/Animal/Inactivar/','animalController@Inactivar');
+//Fin Rutas Animal
+
+//Rutas Monta
+Route::get('/Monta/Consulta','montaController@ConsultaMontas');
+Route::get('/Monta/Lista','montaController@ListaMontas');
+Route::get('/Monta/Editar/{id}','montaController@editar_monta');
+Route::get('/Monta/ConsultaToro/','montaController@ConsultaAnimalesM');
+Route::get('/Monta/ConsultaVaca/','montaController@ConsultaAnimalesF');
+//Fin Rutas Monta
+
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
@@ -117,4 +137,7 @@ Route::get('/home', 'HomeController@index');
 // Rutas resource (Estas van de ultima de todas la rutas por obligacion)
 Route::resource('ventaAnimal', 'ventaAnimalController');
 Route::resource('promedioleche','promedioAnimalController');
+Route::resource('Animal','animalController');
+Route::resource('Raza','razaController');
+Route::resource('Monta','montaController');
 //  Fin Rutas resource

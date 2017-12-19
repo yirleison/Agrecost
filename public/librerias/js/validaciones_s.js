@@ -37,7 +37,7 @@ var validar={
 					text: 'Por favor completa los campos',
 					type:'error'
 				});
-				$("#Valor").parent().removeClass('has-success').addClass('has-error');
+				
 				return false;
 			}
 		});
