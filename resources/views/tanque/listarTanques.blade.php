@@ -39,12 +39,15 @@
           <tbody>
 
           </tbody>
+
         </table>
+         <label for="" class="label label-warning" id="cant_tanque">Cantidad leche {{$cant_tanq}}</label>
       </div>
+
     </div>
   </div>
 </div>
-
+ 
 
 {{-- modal para actualizar tanque --}}
 <div class="row">
@@ -101,6 +104,7 @@
   <script type="text/javascript">
   tanque.tabla_tanque();
   validaciones.validar_actualizar_tanque();
+  movimiento.init();
 
   </script>
 @endsection

@@ -33,7 +33,8 @@ class tanqueController extends Controller
   }
 
    public function listar_taques() {
-     return view('tanque.listarTanques');
+    $cant_tanq = DB::table("tanque")->sum("Cantidad");
+     return view('tanque.listarTanques',compact("cant_tanq"));
    }
 
    public function getTabla(){

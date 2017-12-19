@@ -151,6 +151,7 @@
 
 
 	var acumulador = {
+		
 		calcular:function(){
 
 			var suma = 0;

@@ -121,3 +121,11 @@ display: none;
 .est_excel:hover {
 	background: #46b8da;
 }
+
+#tabla-detalle-venta {
+	display: none;
+}
+
+#cant_tanque {
+	font-size: 17px;
+}

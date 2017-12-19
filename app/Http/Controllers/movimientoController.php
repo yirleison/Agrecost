@@ -143,10 +143,11 @@ class movimientoController extends Controller
   }
 
   public function registrar_produccion (Request $request){
+
     $date = Carbon::now();
     $date = $date->format('Y-m-d');
     $input = $request->all();
-     $ca_m = 0;
+    $ca_m = 0;
     $cp = $input["cantidad"];
     $ca_m = $input["cantidad"];
     $ms =0;
@@ -161,7 +162,6 @@ class movimientoController extends Controller
 
       $tanques = DB::table('tanque')->select('tanque.*')
       ->where('Estado','=','Disponible')
-      ->orwhere('Estado','=','Lleno')
       ->orderBy('Codigo','ASC')->get()->toArray();
 
       $cantidad = 0;
@@ -190,7 +190,9 @@ class movimientoController extends Controller
 
           $can_cp = ($value->Cantidad + $cp);
 
-          if($can_cp == $value->Capacidad ){
+          if ($cp != 0) {
+           
+           if($can_cp == $value->Capacidad ){
 
             array_push($tq_existencia,["Codigo"=>$value->Codigo,"Cantidad"=> $cp]);
 
@@ -208,8 +210,8 @@ class movimientoController extends Controller
             $cp = 0;
 
           }else if ($can_cp > $value->Capacidad ) {
-
-            $r_cap = ($can_cp-$value->Capacidad);
+           
+            $r_cap = ($can_cp - $value->Capacidad);
 
             $cp_u = ["Cantidad" => ($value->Capacidad),"Estado"=>"Lleno"];
 
@@ -219,11 +221,15 @@ class movimientoController extends Controller
           }
 
           $up_c =  DB::table('tanque')->where("Codigo", $value->Codigo)->update($cp_u);
+
           if ($up_c != null) {
             $cont++;
           }
         }
+        }
+       
         if ($cont > 0) {
+
           foreach ($tq_existencia as  $val) {
             if($val["Cantidad"] != 0){
               $ex_l = DB::table('existencia_leche')->insert([
@@ -234,6 +240,7 @@ class movimientoController extends Controller
             }
           }
         }
+
         if ($ex_l != null) {
           $pr_c = Produccion_corral::create([
             'Codigo_corral'=>$input['corral'],
@@ -241,21 +248,23 @@ class movimientoController extends Controller
             'Jornada'=>$input['jornada'],
             ]);
         }
+        
         if ($pr_c != null) {
           $dt_produ = movimiento::where('Codigo', $cmv)->get();
 
           return json_encode([$dt_produ,"mensaje"=>1]);
         }
-      }
+        
     }
-    else {
-      return json_encode(["mensaje"=>5]);
-    }
-
-
-  } catch (Exception $e) {
-    return json_encode(["mensaje"=>2]);
   }
+  else {
+    return json_encode(["mensaje"=>5]);
+  }
+
+
+} catch (Exception $e) {
+  return json_encode(["mensaje"=>2]);
+}
 }
 
 public function eliminar_venta(Request $request){

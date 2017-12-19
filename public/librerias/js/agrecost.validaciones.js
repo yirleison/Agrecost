@@ -115,8 +115,13 @@ var validacion_corral = {
             capacidad: true,
             maxlength: 4,
             minlength:2
+          },
+
+          tipo:{
+            required: true,
           }
         },
+
         submitHandler: function (form) {
           form.submit();
         },
@@ -133,6 +138,10 @@ var validacion_corral = {
             required: "Este campo es requerido",
             maxlength: "maximo 4 digitos",
             minlength:"minimo 2 digitos"
+          },
+
+          tipo:{
+            required: "Este campo es requerido",
           }
         },
       });

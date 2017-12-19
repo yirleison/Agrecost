@@ -1,4 +1,6 @@
 
+
+
 var tabla = null;
 var iid_mv = 0;
 
@@ -71,6 +73,16 @@ var movimiento = {
       }
     });
 
+     $("#cantidad").keyup(function(event) {
+      if ($("#cantidad").val() > $("#capacidad").val()) {
+        new PNotify({
+          title:"Cantidad",
+          text: "La cantidad no puede ser mayor a la capacidad",
+          type: "info"
+        });
+        $("#cantidad").val("");
+      }
+     });
   },
   efectos:function () {
 
