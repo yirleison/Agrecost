@@ -32,7 +32,6 @@ class ventaAnimalController extends Controller
 
 
 
-
     public function excel_detalle($id){
 
 
@@ -42,12 +41,10 @@ class ventaAnimalController extends Controller
       ->where('venta_animal.Codigo','=',$id)
       ->get();
 
-
-
       $view =  \View::make('venta.detalle_pdf', compact('variable'))->render();
       $pdf = \App::make('dompdf.wrapper');
       $pdf->loadHTML($view);
-      
+
       return $pdf->download('venta.detalle_pdf.pdf', compact('variable'));
 
 
@@ -80,9 +77,9 @@ class ventaAnimalController extends Controller
     }
 
 
-    public function getAnimal(){    
+    public function getAnimal(){
 
-     $variable=Animal::select('animal.*','estado_animal.Nombre as estado','raza.Nombre as razav')->where('animal.Codigo_estado','=',1)
+     $variable=Animal::select('animal.*','estado_animal.Nombre as estado','raza.Nombre as razav')->where('animal.Codigo_estado','!=',3)
      ->join('estado_animal' , 'estado_animal.Codigo','=','animal.Codigo_estado')
      ->join('raza','raza.Codigo','=','animal.Codigo_raza')
      ->get();
@@ -95,7 +92,7 @@ class ventaAnimalController extends Controller
 
       return $btnAgregar;
     })
-     ->make(true);    
+     ->make(true);
 
    }
 
@@ -120,7 +117,7 @@ class ventaAnimalController extends Controller
 
       return $btnAgregar;
     })
-    ->make(true);  
+    ->make(true);
 
   }
 
@@ -210,7 +207,7 @@ class ventaAnimalController extends Controller
       "Codigo_animal"=>$request->input('Codigo_animal'),
       "Fecha_venta"=>$request->input('Fecha_venta'),
       "Valor"=>$request->input('Valor'),
-      Animal::where('animal.Codigo','=',$request->input('Codigo_animal'))->update(['animal.Codigo_estado'=>2])
+      Animal::where('animal.Codigo','=',$request->input('Codigo_animal'))->update(['animal.Codigo_estado'=>3])
 
 
       ]);

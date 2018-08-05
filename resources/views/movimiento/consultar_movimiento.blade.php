@@ -2,7 +2,7 @@
 
 @section('contenedor')
 <link rel="stylesheet" href="/librerias/css/Estilo.css">
-<div id="formulario"  class="row container-fluid"> 
+<div id="formulario"  class="row container-fluid">
 
  <div class="row" style="margin-top: 20px;">
    <div class="col-md-6 ">

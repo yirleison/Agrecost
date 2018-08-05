@@ -92,7 +92,6 @@ Route::post('/promedioleche/guardarproduccion','promedioAnimalController@guardar
 Route::get('/promedioleche/poranimal','promedioAnimalController@vistapromedio_animal');
 Route::get('/promedioleche/marcado/{id}','promedioAnimalController@marcado');
 Route::get('/promedioleche/tablaPorAnimal/{id}','promedioAnimalController@tablaPorAnimal');
-
 // Fina de las rutas del promedio de leche por animal
 
 //Rutas movimiento.....
@@ -110,6 +109,19 @@ Route::get('/traer/detalle/produccion/{id}','movimientoController@detalle_produc
 Route::get('/exportar/detalle/venta/{id}','movimientoController@exp_venta');
 Route::get('/exportar/detalle/produccion/{id}','movimientoController@exp_produccion');
 
+
+
+//Rutas usuarios
+Route::get('/usuario','UsuarioController@index');
+Route::get('/usuario/listar','UsuarioController@tabla_usuarios');
+Route::post('/usuario/inactivar/{id}','UsuarioController@inactivar_usuario');
+Route::post('/usuario','UsuarioController@inactivar_usuario');
+
+
+
+
+
+//Finf Rutas usuarios
 
 //Rutas Animal
 Route::post('/Animal/Raza','animalController@registroRaza');
@@ -135,6 +147,7 @@ Route::get('/home', 'HomeController@index');
 
 
 // Rutas resource (Estas van de ultima de todas la rutas por obligacion)
+Route::resource('usuarios', 'UsuarioController');
 Route::resource('ventaAnimal', 'ventaAnimalController');
 Route::resource('promedioleche','promedioAnimalController');
 Route::resource('Animal','animalController');

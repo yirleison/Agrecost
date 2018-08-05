@@ -44,7 +44,7 @@
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>
-                <h2>Nombre del usuario</h2>
+                <h2>Administrador</h2>
               </div>
               <div class="clearfix"></div>
             </div>
@@ -57,13 +57,13 @@
                 <ul class="nav side-menu">
                  <li><a href="#"><i class="fa fa-home"></i>Inicio</a></li>
 
-                 <li><a href="#"><i class="fa fa-users"></i>Gestion de Usuarios</a></li>
+                 <li><a href="/usuario"><i class="fa fa-users"></i>Gestion de Usuarios</a></li>
 
                  <li><a><i class="fa fa-leanpub"></i>Animales<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
 
-                   <li><a href="#">Registro animal</a></li>
-                   <li><a href="#">Consultar animal</a></li>
+                   <li><a href="/Animal">Registro animal</a></li>
+                   <li><a href="/Animal/Lista">Consultar animal</a></li>
                    <li><a href="{{url('promedioleche/poranimal')}}">Promedio produccion por animal</a></li>
 
                  </ul>
@@ -77,8 +77,8 @@
              </li>
              <li><a><i class="fa fa-book"></i>Corrales  <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
-                <li><a href="corrales">Registro Corrales</li>
-                <li><a href="consultar/corrales">Consultar Corrales</a></li>
+                <li><a href="/corrales">Registro Corrales</li>
+                <li><a href="/consultar/corrales">Consultar Corrales</a></li>
               </ul>
             </li>
 
@@ -243,6 +243,7 @@
 <script src="/librerias/jquery-validate/additional-methods.min.js"></script>
 <script src="/librerias/jquery-validate/messages_es.min.js"></script>
 <script src="/librerias/js/agrecost.validaciones.js"></script>
+<script src="/librerias/js/usuarios.js"></script>
 <script type="text/javascript" src="/librerias/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="/librerias/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
 <script type="text/javascript" src="/vendors/select2/dist/js/select2.full.js"></script>

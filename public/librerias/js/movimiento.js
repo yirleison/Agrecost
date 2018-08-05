@@ -317,7 +317,7 @@ var movimiento = {
   },
 
   cons_mov:function(){
-   
+
     var valor = $("#cons_mov option:selected").text();
     var d  = $("#cons_mov option:selected").val();
 
@@ -339,20 +339,20 @@ var movimiento = {
        })
        .done(function(datos) {
          console.log(datos);
-        
+
          $("#tb_mv").empty();
          $.each(datos,function(i, p) {
-        
+
           let tipo;
           if(p.Tipo_movimiento == 1){
             tipo = "Venta";
           }
-        
+
           $("#tb_mv").append(
             "<tr><td>"+p.Codigo+"</td><td>"+
             p.Cantidad+"</td><td>"+
             p.Fecha+"</td><td>"+p.Valor+"</td><td>"+tipo+"</td><td><a href='/traer/detalle/venta/"+p.Codigo+"' class='btn btn-info fa fa-eye' title='Ver detalle'></a></td><tr>");
-        
+
         });
       movimiento.exp_mv(iid_mv);
        })

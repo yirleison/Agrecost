@@ -1,14 +1,12 @@
 var usuarios = {
-  
-
   tabla_usuarios:function(){
     $(function() {
       tabla = $('#users-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '/usuarios/tabla/usuarios',
+        ajax: '/usuario/listar',
         columns: [
-        { data: 'nombre', name: 'nombre' },
+        { data: 'name', name: 'name' },
         { data: 'email', name: 'email' },
         { data: 'rol', name: 'rol' },
         { data: 'estado', name: 'estado' },
@@ -45,13 +43,13 @@ var usuarios = {
   },
 
   registrar_usuario:function () {
+
     var datos = {
-      nombre: $('#nombre').val(),
+      name: $('#name').val(),
       email: $('#email').val(),
       password: $('#password').val(),
       rol: $('#rol').val(),
     };
-
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -69,6 +67,7 @@ var usuarios = {
           text: "Registro ha sido exitoso",
           type: "success",
         });
+  $('#modal_edit').modal('toggle');
       }else {
         new PNotify({
           title: "Error",
@@ -76,6 +75,7 @@ var usuarios = {
           type: "danger",
         });
       }
+
       tabla.ajax.reload();
       console.log(success);
     });
@@ -87,7 +87,7 @@ var usuarios = {
     email= $('#email'),
     password = $('#password'),
     datos = id;
-    id_usuario = id;
+    usuarios.actualizar_usuario(datos);
     $.ajax({
       url: '/usuarios/'+datos+'/edit',
       type: 'get',
@@ -108,9 +108,9 @@ var usuarios = {
 
   },
 
-  actualizar_usuario:function () {
+  actualizar_usuario:function (s) {
     var datos = {
-      nombre:  $('#nom').val(),
+      name:  $('#nom').val(),
       email:  $('#ema').val(),
       password:  $('#pass').val(),
       rol:  $('#rol').val(),
@@ -123,7 +123,7 @@ var usuarios = {
     });
 
     $.ajax({
-      url: '/usuarios/'+id_usuario,
+      url: '/usuarios/'+s,
       type: 'put',
       dataType: 'json',
       data:datos
@@ -155,7 +155,7 @@ var usuarios = {
       }
     });
     $.ajax({
-      url: '/usuarios/estado/'+id,
+      url: '/usuario/inactivar/'+id,
       type: 'post',
       dataType: 'json',
       data: {estado:estado}
@@ -213,6 +213,11 @@ var usuarios = {
       })
 
       .done(function(success) {
+        new PNotify({
+          title: "Eliminacion",
+          text: "Eliminacion exitosa",
+          type: "success",
+        });
         tabla.ajax.reload();
         console.log(success);
       });

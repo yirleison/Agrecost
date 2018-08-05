@@ -64,7 +64,7 @@ var vacunacion_js={
   	datos={
 
       Tipo:$("#Tipov").val(),
-      Nombre:$("#Nombre").val(), 
+      Nombre:$("#Nombre").val(),
       Periodicidad:$("#Periodicidad").val(),
       Dosis:$("#Dosis").val(),
       Tipo_administracion:$("#Tipo_administracion").val(),
@@ -88,6 +88,7 @@ var vacunacion_js={
        title:'Noticia',
        text: 'Se guardo correctamente',
        type:'success'
+
      });
     });
 
@@ -119,7 +120,7 @@ var vacunacion_js={
   		}
   	});
   	$.ajax({
-  		url: '/vacunacion/actualizar/'+id_vacu,          
+  		url: '/vacunacion/actualizar/'+id_vacu,
   		type: 'post',
   		data: datos,
   		dataType: 'json'
@@ -148,7 +149,7 @@ var vacunacion_js={
   },
 
 
-  // Eliminacion de un registro si es necesario 
+  // Eliminacion de un registro si es necesario
 
   vacunacion_eliminar:function(id_vacu){
 
@@ -342,7 +343,7 @@ var ventas={
   },
 
 
- 
+
 
 
   listar_ventas:function(){
@@ -354,10 +355,10 @@ var ventas={
         serverSide: true,
         ajax: '/ventaAnimal/listarventas',
         columns: [
-        {data: 'Nombre', name: 'Nombre'},        
-        {data: 'Fecha_venta', name: 'Fecha_venta'},        
-        {data: 'Valor', name: 'Valor'},        
-        {data: 'action', name: 'action', orderable: false, searchable: false}      
+        {data: 'Nombre', name: 'Nombre'},
+        {data: 'Fecha_venta', name: 'Fecha_venta'},
+        {data: 'Valor', name: 'Valor'},
+        {data: 'action', name: 'action', orderable: false, searchable: false}
         ],
         'language':traduccion
 
@@ -443,7 +444,7 @@ var ventas={
 
   },
 
-  
+
 
   actualizar_venta:function(){
 

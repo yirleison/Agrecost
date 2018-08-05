@@ -7,24 +7,24 @@
 <div id="formulario"  class="row">
 	<!-- Division superior del formulario -->
 	<div class="form row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4">
 			<div class="form-group">
 				<div class="page-header">
 					<!-- Url de la imagen central -->
-					<img class="img img-responsive  img-circle" src="/librerias/Imagenes/vaca.jpg">
+					<img class="img img-responsive  img-circle" width="300px" src="/librerias/Imagenes/vaca.jpg">
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="form row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4">
 			<!-- Titulo central -->
 			<h3 id="Encabezado_del_formulario">LISTADO DE ANIMALES</h3>
 		</div>
 	</div>
 	<!-- Tabla del formulario -->
 	<div class="form row table-responsive">
-		
+
 		<div class="col-md-10 col-md-offset-1">
 			<table id="Tabla-animales" class="table table-bordered table-condensed table-hover">
 				<thead>
@@ -32,7 +32,7 @@
 						<th>Codigo</th>
 						<th>Nombre</th>
 						<th>Chapeta</th>
-						<th>Raza</th>						
+						<th>Raza</th>
 						<th>Fecha Nacimiento</th>
 						<th>Sexo</th>
 						<th>Estado</th>
@@ -47,8 +47,8 @@
 				<button type="button" onclick="inactivar_animal()" class="btn btn-danger" data-dismiss="modal"><img src="/librerias/Imagenes/Iconos/block.png" alt=""> Inactivar</button>
 			</div>
 		</div>
-		
-	</div>	
+
+	</div>
 </div>
 
 {!!Form::close()!!}
@@ -67,7 +67,7 @@
 							<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 								<div class="form-group">
 									<label for="txtNombre">Nombre:</label>
-									<input type="text" id="txtNombre" name="Nombre" class="form-control" placeholder="Ingrese Nombre:">
+									<input type="text" id="txtNombre" name="Nombre"  class="form-control" placeholder="Ingrese Nombre:">
 								</div>
 								<div class="form-group">
 									<label for="txtMarcado">Marcado:</label>
@@ -135,7 +135,7 @@ $(function () {
 		processing: true,
 		serverSide: true,
 		ajax: '/Animal/Consulta',
-		columns: [		
+		columns: [
 		{data: 'Codigo', name: 'animal.Codigo'},
 		{data: 'Nombre', name: 'animal.Nombre'},
 		{data: 'Marcado', name: 'animal.Marcado'},
@@ -179,11 +179,7 @@ var id_animal = 0;
 // funcion para motrar los datos en el modal
 function editar(ID) {
 		// Obligatorio en todos los formularios
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-			}
-		});
+	$('#mod_actualiz').modal();
 
 		$.ajax({
 			// Debe crearse la ruta la cual nos pinta los datos
@@ -202,16 +198,16 @@ function editar(ID) {
 			id_animal=datos.Codigo;
 		});
 
-		$('#mod_actualiz').modal();
+
 	}
 
-	// funcion para actualizar en base de datos 
+	// funcion para actualizar en base de datos
 	function actualizar_animal(){
 
 		datos = {
 				// nombre: es el nombre con el que vamos a enviar el dato capturado del id al cual pertenezca el dato
 				chapeta: $('#txtMarcado').val(),
-				nombre: $('#txtNombre').val(),				
+				nombre: $('#txtNombre').val(),
 				fecha_nacimiento: $('#txtFecha').val(),
 				sexo: $('#sltSexo').val(),
 				peso: $('#txtPeso').val(),
@@ -219,13 +215,13 @@ function editar(ID) {
 				raza: $('#sltRaza').val(),
 			};
 			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-				}
-			});
+	      headers: {
+	       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	     }
+	   });
 			$.ajax({
 				url: '/Animal/'+id_animal,
-				type: 'put',
+				type: 'PUT',
 				data: datos,
 				dataType: 'json'
 			}).done(function(mensaje)
@@ -243,7 +239,7 @@ function editar(ID) {
 		function inactivar_animal(){
 			var formElement = document.getElementById("form_data");
 			formData = new FormData(formElement);
-			
+
 			$.ajaxSetup({
 				headers: {
 					'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -254,7 +250,7 @@ function editar(ID) {
 				type: 'post',
 				data: formData,
 				dataType: 'json',
-				processData: false,  
+				processData: false,
 				contentType: false,
 			}).done(function(mensaje)
 			{

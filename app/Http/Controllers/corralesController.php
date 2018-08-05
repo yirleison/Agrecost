@@ -31,16 +31,16 @@ class corralesController extends Controller
     $corral = Corral::create([
       'Tipo'=>  $tipo,
       'Capacidad' => $request->input('capacidad'),
-      'Estado',
+      'Estado'=> "Disponible",
     ]);
 
 
     if ($corral != null) {
-      Notify::success("Registro tanque","Resgistro exitoso");
+      Notify::success("Registro","Registro exitoso");
       return redirect()->route('corral');
     }
     else{
-      Notify::info("Registro tanque","Ha ocurrido un error  al realizar esta operación");
+      Notify::info("Registro","Ha ocurrido un error  al realizar esta operación");
       return redirect()->route('corral');
     }
 

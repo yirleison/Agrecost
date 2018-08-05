@@ -8,6 +8,6 @@ class Raza extends Model
 {
     public $table='raza';
 
-    protected $fillable=['Nombre'];
+    protected $fillable=['nombre'];
     public $timestamps=false;
 }

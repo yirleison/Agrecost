@@ -16,17 +16,17 @@
 <div id="formulario"  class="row">
 	<!-- Division superior del formulario -->
 	<div class="form row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4">
 			<div class="form-group">
 				<div class="page-header">
 					<!-- Url de la imagen central -->
-					<img class="img img-responsive  img-circle" src="/librerias/Imagenes/vaca.jpg">
+					<img class="img img-responsive  img-circle" width="300px" src="/librerias/Imagenes/vaca.jpg">
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="form row">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4">
 			<!-- Titulo central -->
 			<h3 id="Encabezado_del_formulario">REGISTRO DE BOVINO</h3>
 		</div>
@@ -43,7 +43,7 @@
 			<div class="form-group">
 				<div class="input-group">
 					<select class="form-control" name="Raza" id="sltRaza">
-						<option selected="">--- Seleccione Raza ---</option>				
+						<option selected="">--- Seleccione Raza ---</option>
 						@foreach($Raza as $raza){
 						<option value="{{$raza->Codigo}}">{{$raza->Nombre}}</option>}
 						@endforeach
@@ -81,21 +81,21 @@
 		<!--<div class="form-group">
 				<div class="input-group">
 					<input type="text" name="txtArchivo" placeholder="Seleccionimagen del animal" class="form-control" id="url-archivo">
-					<label class="input-group-addon"> 
-						<img src="{{asset('librerias/Imagenes/cargar.png')}}" alt=""> 
+					<label class="input-group-addon">
+						<img src="{{asset('librerias/Imagenes/cargar.png')}}" alt="">
 						<span>
 							<input type="file" id="archivo" name="archivo">
 						</span>
-					</label>	
+					</label>
 				</div>
-			</div>-->								
+			</div>-->
 		</div>
 	</div>
 	<br>
 	<!-- Botones del formulario -->
 	<div class="form row">
 		<div class="col-lg-2 col-lg-offset-4 col-md-2 col-md-offset-4 col-sm-2 col-sm-offset-3 col-xs-5 col-xs-offset-1">
-			<button type="submit" id="btnGuardar" name="Registro" class="btn btn-success"><img src="/librerias/Imagenes/Iconos/guardar.png" /> Guardar</button>	
+			<button type="submit" id="btnGuardar" name="Registro" class="btn btn-success"><img src="/librerias/Imagenes/Iconos/guardar.png" /> Guardar</button>
 		</div>
 		<div class="col-lg-1 col-md-1 col-md-offset-0 col-sm-1 col-sm-offset-1 col-xs-5">
 			<button type="reset" id="btnCancelar" class="btn btn-warning"><img src="/librerias/Imagenes/Iconos/limpiar.png" /> Limpiar</button>
@@ -125,7 +125,7 @@
 					<div class="modal-footer">
 						<button id="btn_crear" type="submit" class="btn btn-success">Crear</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-					</div>					
+					</div>
 					{!! Form::close() !!}
 				</div>
 			</div>
@@ -136,12 +136,12 @@
 
 @section('scripts')
 <script type="text/javascript">
-	$('#btn_modal').click(function () 
+	$('#btn_modal').click(function ()
 	{
 		$('#mod_crear').modal();
 	});
 
-	$('#btn_crear').click(function () 
+	$('#btn_crear').click(function ()
 	{
 		$('#mod_crear').modal();
 	});

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\models\Usuarios;
-use App\models\Rol;
+use App\Model\Usuarios;
+use App\Model\Rol;
 use Datatables;
 use DB;
 use Pnotify;
@@ -19,8 +19,8 @@ class UsuarioController extends Controller
 
   public function index()
   {
-    $roles = Rol::pluck('nombre','id');
-    return view('usuarios',compact('roles'));
+    $roles = Rol::pluck('tipo','id');
+    return view('usuario.registro_usuario',compact('roles'));
 
   }
 
@@ -46,7 +46,7 @@ class UsuarioController extends Controller
   {
     $usuarios = new Usuarios();
     if ($request->ajax()) {
-      $usuarios->nombre = $request->input('nombre');
+      $usuarios->name = $request->input('name');
       $usuarios->email = $request->input('email');
       $usuarios->password = $request->input('password');
       $usuarios->rol_id = $request->input('rol');
@@ -61,8 +61,8 @@ class UsuarioController extends Controller
   // Método para mostrar la tabla en la vista...
   public function tabla_usuarios(){
 
-    $result = Usuarios::select('login.*','rol.nombre as rol')
-    ->join('rol','rol.id', '=','login.rol_id')
+    $result = Usuarios::select('users.*','rol.tipo as rol')
+    ->join('rol','rol.id', '=','users.rol_id')
     ->get();
 
     return Datatables::of($result)
@@ -72,7 +72,6 @@ class UsuarioController extends Controller
       $btn_editar = "";
       $btn_inactivar = "";
       $btn_eliminar = "";
-
       $btn_editar = '<a href="#" class="btn btn-primary btn-xs botones" onclick="usuarios.editar_usuario('.$result->id.');" id="editar"><i class="fa fa-pencil-square-o iconos-botones" aria-hidden="true"> </i> Editar</a>';
       $btn_eliminar = '<a href="#" class="btn btn-danger btn-xs botones" onclick="usuarios.eliminar('.$result->id.');"  id="eliminar"><i class="fa fa-trash-o iconos-botones" aria-hidden="true"></i> Eliminar</a>';
 
@@ -159,8 +158,6 @@ class UsuarioController extends Controller
   // Método para cambiar estado....
   public function inactivar_usuario (Request $request, $id){
     $usuarios =  Usuarios::find($id);
-
-    $usuarios = Usuarios::find($id);
     if ($usuarios != null) {
       $usuarios->update(['estado'=>$request->input('estado')]);
       return json_encode(["mensaje"=>1]);
